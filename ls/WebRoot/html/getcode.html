@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>获取代码</title>
+
+<link href="css/base/bootstrap.css" rel="stylesheet"/>
+<link href="css/base/base.css" rel="stylesheet"/>
+<link href="css/modelTwo/activity.css" rel="stylesheet"/>
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="js/base/bootstrap.js" type="text/javascript"></script>
+<script src="js/modelTwo/getcode.js" type="text/javascript"></script>
+
+
+
+<!--<link href="../css/base/bootstrap.css" rel="stylesheet"/>
+<link href="../css/base/base.css" rel="stylesheet"/>
+<link href="../css/modelTwo/activity.css" rel="stylesheet"/>
+<script src="../js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="../js/base/bootstrap.js" type="text/javascript"></script>
+<script src="../js/modelTwo/getcode.js" type="text/javascript"></script>-->
+
+
+</head>
+<body>
+
+  <div id="get_code" >
+  
+    <div id="activitytitle" style="position:relative">
+	
+    	<ol class="clearfix" >
+        	
+            <li id="ac_get" class="fl ac_li onn"><a   href="javascript:;">获取代码</a></li>
+			
+    	</ol>  
+		<button id="cuochu" style="position:absolute;top:10px; right:20px; background:none; border:none;"><img src="images/modelTwo/exit.gif"/></button> 
+    </div>
+
+<div id="get" >
+        	<p class="get_title">灵石已为您生成活动代码，可直接下载。下载的代码请发给广告投放渠道/媒体。如果不清楚代码安放位置，请参看该 <a  data-toggle="modal"  data-target="#addindent" href="javascript:;" style="text-decoration:underline;">实例</a></p>
+        	
+            <div id="download">
+            <p class="lookup_title">下载代码</p>
+            </div>
+			<div id="lookup">
+            	<p class="lookup_title">查询代码</p>
+           		<div>
+            <select class="lookup_trend" id="person_cancel"><option>请选择渠道</option></select>
+            <select class="lookup_trend" id="person_ideal"><option>请选择创意</option></select>
+            <button type="button" id="product" class="codecopy vertical-container bordercol" style="background:url(images/modelTwo/code.gif) no-repeat 5px center; padding-left:10px; color:#666;">
+          		生成代码
+            </button>
+            	</div>
+            	
+            	<p id="imp" class="ac_show vertical-container"><label class="cose_lokfon">展示代码</label><input  id="ac_lokshow" type="text" class="inputcode" value="" placeholder="展示代码是用来统计广告被展示的人、时间、位置、次数等数据" /><a  id="copyshow" href="javascript:;" class="codecopy vertical-container bordercol" ><img src="images/modelTwo/copy.gif"/>复制代码</a></p>
+            	<p id="cli" class="ac_show vertical-container"><label  class="cose_lokfon">点击代码</label><input  id="ac_lokclick" type="text" class="inputcode" value="" placeholder="点击代码是用来统计广告被点击的人、时间、位置、次数等数据"/><a id="copyclick" href="javascript:;" class="codecopy vertical-container bordercol"><img src="images/modelTwo/copy.gif"/>复制代码</a></p>
+				<p id="rea"	 class="ac_show vertical-container"><label  class="cose_lokfon">到达代码</label><input  id="ac_lokreach" type="text" class="inputcode" value="" placeholder="到达代码是用来统计广告被点击后到达的人、时间、位置、次数等数据"/><a id="copyreach" href="javascript:;" class="codecopy vertical-container bordercol"><img src="images/modelTwo/copy.gif"/>复制代码</a></p>
+        	</div>
+			<!--<input id="ac_over" class="ac_over" type="button" value="关闭"/>-->
+        </div>
+<div >
+			<hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			</ol>
+		</div>
+    </div>
+<div class="modal fade" id="addindent" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+				<h4 class="modal-title" id="myModalLabel"> 安放指导 </h4>
+				<div class="error" style="text-align:center" id="err"></div>
+			</div>
+			<div class="modal-body">
+			<img style="width:auto" src="images/modelTwo/dao.jpg"/>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+		
+	</div>
+	<!-- /.modal --> 
+</div>	
+</body>
+</html>

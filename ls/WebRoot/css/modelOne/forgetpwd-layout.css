@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+
+.confirm,.resetpwd{ display:inline-block; width:150px; height:48px; padding-left:40px; font-size:18px; font-weight:400; color:#666;}
+.ft{color:#F60; border-bottom:1px solid #f60;}
+
+#septtwo{ margin-left:10px;}
+
+
+#content{ margin:0 146px 0 126px; padding-top:60px; position:relative;}
+#steptitle{ height:54px; width:auto; font:14px;}
+.one{ display:inline-block; width:35px; height:35px; background:#e6e6e6; border-radius:50%; line-height:35px; text-align:center; font:Arial, Helvetica, sans-serif 12px; color:#FFF;}
+.over{background:#F60;}
+
+
+#find-main{ margin-top:40px; padding:30px 0 0 20px; width:auto; height:150px; background-color:#f6f6f6;}
+.downstepone,.downstepthree,.ok{position:absolute; top:330px; left:0; width:90px; height:30px; background:#F60; color:#FFF; font-size:12px; border:none; border-radius:4px;}
+.upstepone,.upsteptwo{position:absolute; top:330px; left:110px; width:96px; height:30px; background:#f6f6f6; color:#666; font-size:12px; border:none; border-radius:4px;}
+.inputone{ margin-bottom:20px;  width:240px; height:30px;padding-left:10px; font:12px;color:#999;   border:1px solid;border-color:#abbce8 #c3cae0 #b9c8ef;
+	-webkit-transition:all 0.25s linear;	-moz-transition:all 0.25s linear;transition:all 0.25s linear;border-radius:4px;}
+.inputone:focus{outline:none;color:#525864;	border-color:#84c0ee;	-webkit-box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;	-moz-box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;	box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;	}
+.inputwidth{width:150px;}
+.exp{position:absolute; top:190px; left:400px; padding:5px; width:160px; height:70px; background:#fff; color:#666; font-size:12px; border:#999; border-radius:4px; border:#CCC 1px solid;}
+.get{width:120px; height:30px; background:#d0cdc7; color:#666; font-size:12px; border:none; border-radius:4px;}
+.fonttwo{ font-size:14px; color:#999; font-weight:300; display:inline-block; width:80px; height:20px; text-align:right;}

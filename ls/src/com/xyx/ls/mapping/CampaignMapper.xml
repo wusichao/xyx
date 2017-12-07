@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyx.ls.dao.campaign.CampaignMapper">
+<resultMap id="CampaignMap" type="com.xyx.ls.model.campaign.Campaign" >
+<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="account_id" property="account_id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="begin_date" property="begin_date" jdbcType="TIMESTAMP" />
+		<result column="end_date" property="end_date" jdbcType="TIMESTAMP" />
+		<result column="cost_type" property="cost_type" jdbcType="VARCHAR" />
+		<result column="cost" property="cost" jdbcType="DECIMAL" />
+		<result column="creation" property="creation" jdbcType="TIMESTAMP" />
+		<result column="removed" property="removed" jdbcType="BIT" />
+		<result column="last_modified" property="last_modified" jdbcType="TIMESTAMP" />
+		<result column="activity_cycle" property="activity_cycle" jdbcType="BIGINT" />
+		<result column="unit_price" property="unit_price" jdbcType="DECIMAL" />
+		
+		<result column="target_url" property="target_url"
+			jdbcType="VARCHAR" />
+		
+</resultMap>
+<resultMap type="com.xyx.ls.model.campaign.Creative" id="CreativeMap">
+<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="path" property="path" jdbcType="VARCHAR" />
+		<result column="creation" property="creation" jdbcType="TIMESTAMP" />
+		<result column="removed" property="removed" jdbcType="BIT" />
+		<result column="last_modified" property="last_modified" jdbcType="TIMESTAMP" />
+</resultMap>
+<resultMap type="com.xyx.ls.model.campaign.Channel" id="ChannelMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="creation" property="creation" jdbcType="TIMESTAMP" />
+		<result column="removed" property="removed" jdbcType="BIT" />
+		<result column="last_modified" property="last_modified" jdbcType="TIMESTAMP" />
+</resultMap>
+
+<resultMap type="com.xyx.ls.model.campaign.Inversionpoint" id="InversionpointMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="creation" property="creation" jdbcType="TIMESTAMP" />
+		<result column="removed" property="removed" jdbcType="BIT" />
+		<result column="last_modified" property="last_modified" jdbcType="TIMESTAMP" />
+</resultMap>
+<resultMap type="com.xyx.ls.bean.ReportBean" id="reportMap">
+		<result column="conversion" property="convertion" jdbcType="BIGINT" />
+	</resultMap>
+	<resultMap type="com.xyx.ls.model.campaign.OperateLog" id="OperateLogMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="campaign_id" property="campaignId" jdbcType="BIGINT" />
+		<result column="ip" property="IP" jdbcType="VARCHAR" />
+		<result column="xid" property="userId" jdbcType="VARCHAR" />
+		<result column="operate_type" property="operateType" jdbcType="VARCHAR" />
+		<result column="change_item" property="changeItem" jdbcType="VARCHAR" />
+		<result column="change_before" property="changeBefore" jdbcType="VARCHAR" />
+		<result column="change_after" property="changeAfter" jdbcType="VARCHAR" />
+		<result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+<insert id="add" useGeneratedKeys="true" keyProperty="id">
+ 	insert into campaign (account_id,name,begin_date,end_date,cost,cost_type,target_url,creation,removed,last_modified,unit_price,monitor_type) values(
+ 	#{account_id},#{name},#{begin_date},#{end_date},#{cost},#{cost_type},#{target_url},#{creation},#{removed},#{last_modified},#{unit_price},#{monitor_type}
+ 	)
+</insert>
+<insert id="addCampaignChannel">
+insert into campaign_channel_rel (campaign_id,channel_id)
+values(#{0},#{1})
+</insert>
+<insert id="addCampaignInversionpoint">
+insert into campaign_convertion_rel (campaign_id,convertion_id)
+values(#{0},#{1})
+</insert>
+<insert id="addCampaignCreative">
+insert into campaign_creative_rel (campaign_id,creative_id)
+values(#{0},#{1})
+</insert>
+
+<delete id="delete">
+delete from campaign where id in (#{ids})
+</delete>
+
+<delete id="deleteCampaignChannel">
+delete from campaign_channel_rel where campaign_id in(#{ids})
+</delete>
+<delete id="deleteCampaignCreative">
+delete from campaign_creative_rel where campaign_id in(#{0})
+</delete>
+<delete id="deleteCampaignCreativeId">
+delete from campaign_creative_rel where creative_id in(#{0})
+</delete>
+<delete id="deleteCampaignInversionpoint">
+delete from campaign_convertion_rel where campaign_id in(#{ids})
+</delete>
+<update id="update">
+	update campaign set 
+	<if test="#{name}!=null">
+		name=#{name},</if>
+		<if test="#{begin_date}!=null">
+		begin_date=#{begin_date},</if>
+		<if test="#{end_date}!=null">
+		end_date=#{end_date},</if>
+		<if test="#{monitor_type}!=null">
+		monitor_type=#{monitor_type},</if>
+		<if test="#{cost}!=null">
+		cost=#{cost},</if>
+		<if test="#{cost_type}!=null">
+		cost_type=#{cost_type},</if>
+		<if test="#{target_url}!=null">
+		target_url=#{target_url},</if>
+		<if test="#{removed}!=null">
+		removed=#{removed},</if>
+		<if test="#{last_modified}!=null">
+		last_modified=#{last_modified},</if>
+		<if test="unit_price">
+		unit_price=#{unit_price}</if>
+		where id=#{id}
+</update>
+
+<select id="findById" resultMap="CampaignMap">
+	select * from campaign where id =#{id} and removed =b'0'
+</select>
+<select id="getRecords"  resultType="java.lang.Integer">
+	select count(*) from campaign where name like CONCAT('%',#{0},'%') and account_id=#{2}
+	<if test="#{1}!=null"> and #{1}</if> and removed =b'0'
+</select>
+<select id="findAll"  resultMap="CampaignMap" parameterType="hashmap" statementType="STATEMENT">
+	select * from campaign where name like '%${name}%'
+	 and ${state} and account_id=${id} and removed =b'0'
+	ORDER
+	BY ${sidx} ${sord} limit ${start},${rowpage}
+</select>
+
+<insert id="addCreative" useGeneratedKeys="true" keyProperty="id">
+insert into creative (name,
+	<if test="path!=null">
+ 	path,</if>
+	creation,last_modified) values(
+ 	#{name},
+ 	<if test="path!=null">
+ 	#{path},</if>
+ 	#{creation},#{last_modified}
+ 	)
+</insert>
+<select id="findByCampaignId"  resultMap="CreativeMap">
+select* from creative where id in(
+select creative_id from campaign_creative_rel where campaign_id = #{id}
+)  order by last_modified desc
+</select>
+<select id="findCreation" resultType="java.util.Date">
+select creation from campaign where id =#{id}
+</select>
+<select id="findByName" resultMap="CampaignMap">
+select * from campaign where account_id=#{1} and name=#{0} and removed =b'0'
+</select>
+<select id="findChannelByName" resultMap="ChannelMap">
+SELECT * FROM channel WHERE id IN(SELECT channel_id FROM account_channel_rel WHERE account_id=#{1}) AND NAME = #{0}
+</select>
+<select id="findPointByName" resultMap="InversionpointMap">
+SELECT * FROM convertion WHERE id IN(SELECT convertion_id FROM account_convertion_rel WHERE account_id=#{1}) AND NAME = #{0}
+</select>
+<delete id="deleteCreativeByCampaign" >
+delete from creative where id =#{id}
+</delete>
+<select id="findNoChannelList" resultMap="ChannelMap">
+select * from channel where id in(select channel_id from account_channel_rel where account_id=#{1}) and id not in(select channel_id from campaign_channel_rel where campaign_id=#{0})
+</select>
+<select id="findCreativeByName"  resultMap="CreativeMap">
+select * from creative where id in (select creative_id from campaign_creative_rel where campaign_id=#{1}) and name=#{0}
+</select>
+<select id="findCreativeById" resultType="java.lang.String">
+select path from creative where id=#{0}
+</select>
+<select id="findByAccountAndName" resultMap="CampaignMap">
+select * from campaign where account_id=#{1} and removed =b'0' and  name like CONCAT('%',#{0},'%')
+</select>
+<select id="findCreativeByIds" resultMap="CreativeMap">
+select * from creative where id=#{0}
+</select>
+<select id="isCampaignData"  resultMap="reportMap">
+select * from rpt_base where campaign_id in(#{0})
+</select>
+<update id="falseDelete">
+update campaign set removed = b'1' where id=#{0}
+</update>
+<select id="isCreativeDtata" resultMap="reportMap">
+select * from rpt_base where creative_id in(#{0})
+</select>
+<insert id="savaOperateLog">
+insert into operate_log (campaign_id,operate_time,ip,xid,operate_type,change_item,change_before,change_after)values(
+#{campaignId},#{operateTime},#{IP},#{userId},#{operateType},#{changeItem},#{changeBefore},#{changeAfter})
+</insert>
+
+<insert id="setBaseData">
+#{0}
+</insert>
+<insert id="setGeoData">
+#{0}
+</insert>
+<insert id="setHourData">
+#{0}
+</insert>
+<select id="getOperateLogDataRecords" resultType="java.lang.Integer">
+select count(*) from operate_log where campaign_id =#{0}
+</select>
+<select id="getOperateLogData" resultMap="OperateLogMap" parameterType="hashmap" statementType="STATEMENT">
+select *from operate_log where campaign_id =${id} ORDER
+	BY ${sidx} ${sord} limit ${start},${rowpage}
+</select>
+<select id="getOperate" resultMap="OperateLogMap">
+select * from operate_log where id =#{0}
+</select>
+<select id="findCreativeNameById" resultType="java.lang.String">
+select name from creative where id =#{0}
+</select>
+<select id="getCampaignListByconversion" resultMap="CampaignMap">
+SELECT * FROM campaign WHERE id IN(SELECT campaign_id FROM campaign_convertion_rel WHERE convertion_id=#{0}) and removed=b'0'
+</select>
+
+<select id="findByCampaignIdNoPath" resultMap="CreativeMap">
+select* from creative where id in(
+select creative_id from campaign_creative_rel where campaign_id = #{id}
+) and path !='null'
+</select>
+<select id="findCreativeNoPath" resultMap="CreativeMap">
+select* from creative where id in(
+select creative_id from campaign_creative_rel where campaign_id = #{id}
+) and path ='null'
+</select>
+<select id="findByAccount" resultMap="CampaignMap">
+select * from campaign where account_id = #{0}
+</select>
+<select id="findCampaignType"  resultType="java.lang.Integer">
+select monitor_type from campaign where id = #{0}
+</select>
+</mapper>

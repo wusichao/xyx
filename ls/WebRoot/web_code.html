@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/base/bootstrap.css" rel="stylesheet"/>
+<link href="css/base/base.css" rel="stylesheet"/>
+<link href="css/modelTwo/web_code.css" rel="stylesheet"/>
+<script src="js/base/jquery-1.11.1.min.js"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});});	
+</script>
+<script src="js/base/bootstrap.js" type="text/javascript"></script>
+<script src="js/base/html5shiv.js"></script>
+<script src="js/modelTwo/web_code.js"></script>
+<title>网站代码</title>
+</head>
+<body>
+<!--<button onclick="clickEvevt()">12222</button>-->
+<div id="web_code" class="clearfix" >
+  <ol class="clearfix" id="web_tit" >
+        	<li class="fl ac_li ac_li_on"><a  href="javascript:;" class="co">到访代码</a></li>
+            <li class="fl ac_li "><a  href="javascript:;">转化代码</a></li>
+  </ol>
+        <div id="visitor">
+        <span>
+        	<h3 ><span class="code_num ">1</span><span class="code_h">提取代码</span></h3>
+        	<input type="hidden" id="hido"/>
+            <p>系统已为您生成了到访代码（javascript），请复制代码。</p>
+			<textarea class="code_area" id="vistercode"></textarea>
+            <a  id="code_copy" href="javascript:;" class="codecopy vertical-container bordercol" ><img src="images/modelTwo/copy.gif"/>复制代码</a>
+        </span>
+        <span>
+        	<h3 ><span class="code_num ">2</span><span class="code_h">安装代码</span></h3>
+            <p style="line-height:30px;">1、只需将代码粘贴至到达网页中&lt;/head&gt;之前，即可轻松实现到访统计；</p>
+			  <p  style="line-height:30px;">2、建议在header.htm类似的页头模板页面中安装，以达到一处安装，全站皆有的效果；</p>
+			    <p  style="line-height:30px;">3.如需在JS文件中调用统计分析代码，请直接去掉以下代码首尾的&lt;script type="text/javascript"&gt;与&lt;/script&gt;后，放入JS文件中即可。</p>
+        </span>
+		<!--<span>
+        	<h3><span class="code_num ">3</span><span class="code_h">检验代码</span></h3>
+			 <p>请将安放代码的网页URL粘贴到输入框，然后点击开始检验。</p>
+            <span class="weblobel"><input type="text" class="inputtext" placeholder="请输入您安放代码的网站URL" id="checkr" /><input class="checkreach bordercol" id="checkreach" type="button" value="检验代码"/><p class="error" id="checkerror"></p></span>
+        </span>-->
+        </div>
+  <div id="conversion">
+        <span id="setpoint">
+        	<h3><span class="code_num ">1</span><span class="code_h">设置转化点</span></h3>
+            <p>根据营销目标将注册、购买、分享等行为设置为转化点，在统计过程中，系统会自动将转化行为追溯到营销活动的点击行为上。</p>
+            <!--<label id="ac" class="error"></label>-->
+            
+            <button id="addp" class="add bordercol" data-toggle="modal"  data-target="#point">新增转化点</button>
+            <button id="show" class="remove bordercol">管理转化点 </button><br/>
+            <span id="more">
+			<!--<button class='upload bordercol'  onclick='getcode(this)'  title='122'>dianji</button>
+			<button class='upload bordercol'  onclick='getcode(this)'  title='222'>fen</button>-->
+            </span>
+        </span>
+        <span>
+        	<h3 ><span class="code_num ">2</span><span class="code_h">提取代码</span></h3>
+            <p>系统已为您生成了转化代码，请选择代码类型：<select id="c"><option>点击触发</option><option>页面加载</option></select></p>
+			<span style="display:block;width:auto; height:auto; position:relative;"><textarea id="conversioncode" class="code_area"></textarea>
+            <a  id="code_copyy" href="javascript:;" class="codecopy codecopyy vertical-container bordercol"><img src="images/modelTwo/copy.gif"/>复制代码</a></span>
+        </span>
+		
+        <span>
+        	<h3 ><span class="code_num">3</span><span class="code_h">安装代码</span></h3>
+            <p>只需将代码黏贴至转化成功网页中&lt;/body&gt;之前，即可轻松实现转化统计。</p>
+           
+        </span>
+<!-- 		<span> -->
+<!--         	<h3><span class="code_num ">4</span><span class="code_h">检验代码</span></h3> -->
+<!-- 			 <p>请将安放代码的网页URL粘贴到输入框，然后点击开始检验。</p> -->
+<!--             <span class="weblobel"><input type="text" class="inputtext mab" placeholder="请输入您按放代码的网站URL" id="checkc" /><input class="checkreach bordercol" id="checkcon" type="button" value="检验代码"/><p class="error" id="checkconerror"></p></span> -->
+<!--         </span> -->
+		<span>
+        	<h3 ><span class="code_num">4</span><span class="code_h">携带扩展参数信息</span></h3>
+            <p>可自定义扩展参数。只需将上面的转化代码后面增加自定义的参数。 <a class="exg" href="#exg" data-toggle="modal">详细步骤说明</a></p>
+           
+        </span>
+   </div> 
+     <div id="foot" > 
+       <hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			</ol>
+</div>     
+</div>
+<!-- 模态框（Modal）添加转化点 -->
+<div class="modal fade" id="point" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               新增转化点
+            </h4>
+         </div>
+         
+         <div class="modal-body">
+         <!-- <label class="ac_labfon">转化点编码</label><input class="ac_labfon" id="pointnum" disabled="disabled" value="1"/><br/>-->
+            <label class="ac_labfon">转化点含义</label><img class="ac_point" src="images/modelTwo/crc.gif"/><input id="pointname" class="inputs" type="text" name="pointname" placeholder="比如注册"/><input class="addpoint" type="button" value="添加" id="addpoint"/><br/><label id="sc_pointerror" class="error"></label>   
+         </div>
+         <div class="modal-footer">
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div> 
+
+<div class="modal fade" id="exg" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               扩展参数信息
+            </h4>
+         </div>
+         
+         <div class="modal-body">
+            <h3>转化代码举例说明<span class="exg_font">(若不传递请留空)</span></h3><br/><div class="exg_area">&lt;img src='//t.xyxtech.com/v?a=29&amp;v=28&amp;p=<span class="exg_font">其它扩展参数</span>' style='display:none;'/&gt;</div>
+			<h3 style="margin-top:10px; margin-bottom:10px;">支持的扩展参数</h3>
+			<div class="exg_code">p1::参数一,p2::参数二,p3::参数三,p4::参数四,p5::参数五,p6::参数六,p7::参数七,p8::参数八,p9::参数九,p10::参数十,p11::参数十一</div>
+			<div class="exg_font">注：请准确使用以上参数，参数间以“,”隔开，最多可存放十一个扩展参数。</div>
+
+			<h3 style="margin-top:10px; margin-bottom:10px;">举例</h3>
+			<p>例如统计注册成功用户，即以“注册”为转化点</p>
+			<img style="width:auto;" src="images/modelTwo/exg.jpg"/>
+			<div class="exg_font">注：若携带扩展参数信息，传递的参数值须做编码处理。</div>
+			<img style="width:auto; margin-left:20px" src="images/modelTwo/exg2.png"/>
+         </div>
+         <div class="modal-footer">
+         </div>
+      </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+</div>
+</body>
+</html>

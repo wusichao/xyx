@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/base/bootstrap.css" rel="stylesheet"/>
+<link href="css/base/base.css" rel="stylesheet"/>
+<link href="css/modelTwo/action_log.css" rel="stylesheet"/>
+<link href="jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+<link href="jqGrid/css/ui.jqgridtttttttttt.css" rel="stylesheet"/>
+<title>操作日志</title>
+</head>
+
+<body>
+<div id="log" style="position:relative;">
+<button id="uppage" style="position:absolute; top:50px; right:60px; background:none; border:none;"><img src="images/modelTwo/exit.gif"/></button>
+	<ol>
+		<li class="ac_li">操作日志</li>
+	</ol>
+	<div id="log_main">
+		<table id="log_grid"></table>
+ 		<div id="log_pager"></div>
+	</div>
+	<div>
+		<hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			</ol>
+	</div>	
+</div>
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script language="javascript" src="jqGrid/js/jquery.jqGrid.min.js"></script>
+<script language="javascript" src="jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script language="javascript" src="js/base/jquery.cookie.js"></script>
+<script src="js/modelTwo/action_log.js" type="text/javascript"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});});	
+</script>
+</body>
+</html>

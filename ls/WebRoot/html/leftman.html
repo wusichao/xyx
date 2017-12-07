@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<head>
+<title>左侧</title>
+<link href="/ls/css/modelThree/leftman.css" rel="stylesheet"/>
+<script src="/ls/js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+<script src="/ls/js/modelThree/leftman.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<img id="shku" style="position:fixed; left:28px; top:30px; display:none; cursor:pointer;" src="/ls/images/modelTwo/u258.jpg"/>
+<div class="left fl">
+	<img id="list" class="listimg" src="/ls/images/modelTwo/u259.png"/>
+	<ul>
+		<li class="vertical-container ac_font ac_on "><a class="vertical-container" href="approval.html" target="content"><i class="ac_lif" title="账号审核"></i>账号审核</a></li> 
+		<!--<li class="vertical-container ac_font "><a class="vertical-container" href="web_code.html" target="content"><i class="ac_code"  title="产品管理"></i>产品管理</a></li>-->
+		<li class="vertical-container ac_font "><a class="vertical-container" href="indentman.html" target="content"><i class="ac_lio" title="订单管理"></i>订单管理</a></li>
+    </ul>
+    </div>
+</body>
+</html>

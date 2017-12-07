@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- 数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="validationQuery" value="select 1 from dual" />
+		<property name="defaultReadOnly" value="false" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="false" />
+		<property name="url" value="jdbc:mysql://101.200.128.123:3306/tk" />
+		<property name="username" value="tk" />
+		<property name="password" value="tktk" />
+		<property name="initialSize" value="1" />
+		<property name="maxActive" value="5" />
+		<property name="maxIdle" value="2" />
+		<property name="minIdle" value="1" />
+	</bean>
+	
+</beans>

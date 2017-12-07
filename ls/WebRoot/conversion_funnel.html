@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>转化漏斗</title>
+
+
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+<link href="css/bootstrap.css" rel="stylesheet"/>
+<script src="js/base/bootstrap.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/modelTwo/bootstrap-select.min.css">
+<script type="text/javascript" src="js/modelTwo/bootstrap-selects.js"></script>
+
+<link href="jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+
+<link href="css/base/base.css" rel="stylesheet"/>
+<link href="css/modelTwo/conversion_funnel.css" rel="stylesheet"/>
+<script type="text/javascript" src="date/js/jquery-ui-1.9.2.custom.js"></script>
+<script type="text/javascript" src="date/js/share.js"></script>
+<script src="js/modelTwo/conversion_funnel.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<div id="con">
+	<ol>
+		<li class="con_title">转化漏斗</li>
+	</ol>
+	<div id="con_main">
+	<input type="hidden" id="ff"/>
+		<label class="ac_labfon">活动</label>
+		 <select  id="con_name"  class="selectpicker formse" data-live-search="true">
+   </select>
+		<!--<input type="text" class="form-controls " name="con_name" id="con_name" placeholder="请输入活动名称"/>
+		<input type="hidden" id="compaign_id">-->
+		<label class="ac_labfon">活动日期</label>
+		<input name="startDate" id="startDate" class="startDate inputtime" style="margin-left:4px" readonly  placeholder="开始时间" type="text" >~<input name="endDate" id="endDate" class="endDate inputtime" readonly   placeholder="结束时间" type="text" onChange="datePickers()" >
+		<input id="com_search" type="button" class="search bordercol"  value="查询"/>
+		<input class="con_btn" type="button" id="show" value=">>" />
+		<p id="more" class="more"> <span id="more_btn" style="display:none;">
+			<label class="ac_labfon">渠道</label>
+			<select id="wsccannel" class=" selectpicker formse" data-live-search="true" multiple="multiple">
+			</select>
+			<label class="ac_labfon ac_labfw">创意</label>
+			<select id="creatives" class=" selectpicker formse" data-live-search="true" multiple="multiple">
+			</select>
+			</span> </p>
+		<table class="tabs" id="con_tab">
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<td>活动周期<span id="com_statu"  class="con_tab_fon" style="display:none;"></span><br />
+						<br />
+						<span id="com_dat"> - </span></td>
+					<td>花费(元)<span id="com_style"  class="con_tab_fon  cost" style="display:none;"></span><br />
+						<br />
+						<span id="com_cost" class="sp"> - </span></td>
+					<td style="cursor:pointer;" class="selecteds" id="cdc">点击率<br/>
+						<br/>
+						<span id="clickrate" class="sp"> - </span></td>
+					<td style="cursor:pointer;"  id="cdr">到达率<br/>
+						<br/>
+						<span id="arrivalrate" class="sp"> - </span></td>
+					<td style="cursor:pointer;" id="cdcr">转化率<br/>
+						<br/>
+						<span id="conversionrate" class="sp"> - </span></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div style="position:relative; width:90%; height:232px; border:1px solid #eee;">
+			<div id="funtab">
+				<table class="ft1 ft1p" id="ftpo">
+					<tbody>
+						<tr>
+							<td></td>
+							<td>展示</td>
+							<td>点击</td>
+							<td>点击率</td>
+							<td>整体流失率</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="sp" id="cti">-</td>
+							<td class="sp" id="ctcl">-</td>
+							<td class="sp" id="ctcr">-</td>
+							<td class="sp" id="ctclr">-</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="ft1 ft2p" id="ftpt">
+					<tbody>
+						<tr>
+							<td></td>
+							<td>点击</td>
+							<td>到达</td>
+							<td>到达率</td>
+							<td>整体流失率</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="sp" id="ctrc">-</td>
+							<td class="sp" id="ctrr">-</td>
+							<td class="sp" id="ctrra">-</td>
+							<td class="sp" id="ctrlra">-</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="ft1 ft3p" id="ftpth">
+					<tbody>
+						<tr>
+							<td></td>
+							<td>到达</td>
+							<td>转化</td>
+							<td>转化率</td>
+							<td>整体流失率</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="sp" id="ctcrea">-</td>
+							<td class="sp" id="ctcre">-</td>
+							<td class="sp" id="ctcrer">-</td>
+							<td class="sp" id="ctcrlr">-</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="fun" style="display:none;">
+				<ul>
+					<li id="impclick">展示:<span id="fi">-</span></li>
+					<li id="clickclick" class="lic">点击:<span id="cl">-</span></li>
+					<li id="reachclick" class="lic">到达:<span  id="fr">-</span></li>
+					<li id="conversionclick" class="lic">转化:<span  id="fc">-</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div >
+			<hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			</ol>
+		</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property resource="xid.properties" />
+	<property name="LOG_HOME" value="/data/tk-logs" />
+	<property name="LOG_HOME_ING" value="/data/tk-logs/ing" />
+
+	<!-- System log -->
+	<appender name="file.log.sys" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<append>true</append>
+		<file>${LOG_HOME_ING}/${server.num}.tk.sys.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/sys/%d{yyyyMMdd}.${server.num}.tk.sys.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%d %-5level %t] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="file.log.sys" />
+	</root>
+
+	<!-- imp -->
+	<appender name="file.imp.log" class="ch.qos.logback.core.rolling.ForceRollingFileAppender">
+		<append>true</append>
+		<file>${LOG_HOME_ING}/${server.num}.imp.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/imp/%d{yyyyMMdd,aux}/%d{yyyyMMddHHmm}.${server.num}.imp.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+		<forceRollingSeconds>10</forceRollingSeconds>
+	</appender>
+	<logger name="imp.log" level="INFO" additivity="false">
+		<appender-ref ref="file.imp.log" />
+	</logger>
+	
+	<!-- click -->
+	<appender name="file.click.log" class="ch.qos.logback.core.rolling.ForceRollingFileAppender">
+		<append>true</append>
+		<file>${LOG_HOME_ING}/${server.num}.click.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/click/%d{yyyyMMdd,aux}/%d{yyyyMMddHHmm}.${server.num}.click.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+		<forceRollingSeconds>10</forceRollingSeconds>
+	</appender>
+	<logger name="click.log" level="INFO" additivity="false">
+		<appender-ref ref="file.click.log" />
+	</logger>
+	
+	<!-- reach -->
+	<appender name="file.reach.log" class="ch.qos.logback.core.rolling.ForceRollingFileAppender">
+		<append>true</append>
+		<file>${LOG_HOME_ING}/${server.num}.reach.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/reach/%d{yyyyMMdd,aux}/%d{yyyyMMddHHmm}.${server.num}.reach.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+		<forceRollingSeconds>10</forceRollingSeconds>
+	</appender>
+	<logger name="reach.log" level="INFO" additivity="false">
+		<appender-ref ref="file.reach.log" />
+	</logger>
+	
+	<!-- cvt -->
+	<appender name="file.cvt.log" class="ch.qos.logback.core.rolling.ForceRollingFileAppender">
+		<append>true</append>
+		<file>${LOG_HOME_ING}/${server.num}.cvt.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/cvt/%d{yyyyMMdd,aux}/%d{yyyyMMddHHmm}.${server.num}.cvt.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+		<forceRollingSeconds>10</forceRollingSeconds>
+	</appender>
+	<logger name="cvt.log" level="INFO" additivity="false">
+		<appender-ref ref="file.cvt.log" />
+	</logger>
+	
+</configuration>

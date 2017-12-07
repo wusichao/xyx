@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyx.ls.dao.order.OrderMapper">
+	<resultMap type="com.xyx.ls.model.order.Order" id="orderMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+		<result column="account_id" property="accountId" jdbcType="BIGINT" />
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+		<result column="order_type" property="orderType" jdbcType="VARCHAR" />
+		<result column="last_modified" property="lastModified"
+			jdbcType="TIMESTAMP" />
+		<result column="product_name" property="productName" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap type="com.xyx.ls.model.order.Functions" id="functionsMap">
+		<result column="last_modified" property="lastModified"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<insert id="add" parameterType="com.xyx.ls.model.order.Order"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into orders
+		(order_number,
+		account_id,begin_date,end_date, creation,
+		last_modified,order_type)
+		values (#{orderNumber},#{accountId},#{begin_date},#{end_date},
+		#{creation},
+		#{lastModified},#{orderType}
+		)
+	</insert>
+	<insert id="addOrdersFunctions">
+		insert into orders_functions_rel (orders_id,functions_id)values(#{0},#{1})
+
+	</insert>
+
+	<select id="getRecords" resultType="java.lang.Integer" parameterType="hashmap" statementType="STATEMENT">
+		SELECT count(o.id) FROM orders o inner JOIN account a ON o.account_id =a.id
+		WHERE ${state} and a.company_name LIKE '%${name}%' and a.removed=b'0'
+	</select>
+	<select id="findAll" resultMap="orderMap" parameterType="hashmap"
+		statementType="STATEMENT">
+		SELECT
+		o.id AS id,
+		o.order_number,
+		a.company_name,
+		o.begin_date,
+		o.end_date,
+		o.order_type,
+		o.creation
+		FROM
+		orders o
+		INNER JOIN account a
+		ON o.account_id = a.id
+		WHERE a.company_name LIKE '%${name}%' and ${state} and a.removed=b'0'
+		ORDER BY ${sidx} ${sord}
+		LIMIT ${start}, ${rowpage}
+	</select>
+	<select id="findAccountByCompanyName" resultType="java.lang.Long">
+		select id from account where company_name=#{0} and removed=b'0' limit 1
+	</select>
+	<select id="findAccountById" resultMap="orderMap">
+		select * from orders where account_id =#{0} and removed =b'0' and 0>=DATEDIFF(begin_date,NOW()) AND DATEDIFF(end_date,NOW())>=0
+	</select>
+	<select id="findFunctionsByOrdersId" resultType="java.lang.String">
+	SELECT f.name FROM functions f INNER JOIN orders_functions_rel ofr ON f.id=ofr.functions_id WHERE ofr.orders_id =#{0} 
+	</select>
+	<select id="findFunctionsList" resultMap="functionsMap">
+	select * from functions where id in (select functions_id from orders_functions_rel where orders_id=(select id from orders where account_id =#{0} and 0>=DATEDIFF(begin_date,NOW()) AND DATEDIFF(end_date,NOW())>=0))
+	</select>
+	<select id="findByAccount" resultMap="orderMap">
+	select * from orders where account_id =#{0}  and removed =b'0' and 0>=DATEDIFF(begin_date,NOW()) AND DATEDIFF(end_date,NOW())>=0
+	</select>
+	<select id="findFunctionsLists" resultMap="functionsMap">
+	select * from functions
+	</select>
+	<select id="findAccountByIdAndDate" resultMap="orderMap">
+	SELECT * FROM orders WHERE account_id =#{0} AND removed =b'0' AND end_date>=#{1}  AND #{1}>=begin_date
+	</select>
+	
+	<select id="checkOrder" resultMap="orderMap">
+	SELECT company_name,email,end_date FROM account INNER JOIN orders ON account.id=orders.account_id WHERE  7>=DATEDIFF(end_date,NOW()) AND DATEDIFF(end_date,NOW())>6 UNION 
+	SELECT company_name,email,end_date FROM account INNER JOIN orders ON account.id=orders.account_id WHERE  3>=DATEDIFF(end_date,NOW()) AND DATEDIFF(end_date,NOW())>2 UNION 
+	SELECT company_name,email,end_date FROM account INNER JOIN orders ON account.id=orders.account_id WHERE  1>=DATEDIFF(end_date,NOW()) AND DATEDIFF(end_date,NOW())>0
+	</select>
+	<insert id="addVip" parameterType="com.xyx.ls.model.order.Order"
+		useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO orders(order_number,account_id,begin_date,end_date,creation,last_modified,order_type)VALUES
+		(#{orderNumber},#{accountId},NOW(),DATE_ADD(NOW(),INTERVAL 1 MONTH),NOW(),NOW(),'试用')
+	</insert>
+	
+	<insert id="addVipRel">
+	INSERT INTO orders_functions_rel(orders_id,functions_id)VALUES(#{0},#{1})
+	</insert>
+</mapper>

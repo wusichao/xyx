@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+.fr{ float:right;}
+.fl{ float:left;}
+h2{padding-left:20px;font-family:'Microsoft YaHei';  font-weight:400;  font-size:21px;  color:#F90; line-height:22px;}
+h5{ padding-left:30px; padding-top:20px;font: 12px 'STXingkai';  color:#FFFFFF;}
+.ullist{height:100%; line-height:50px; margin-bottom:0}
+.ullist a{color:#fff;text-decoration:none;font:13px 'Heiti SC Light','Heiti SC';  font-weight:200;}
+.ullist a:hover { font-size:14px; color:#F90;}
+
+.help {
+	
+	width:auto;
+	height:auto;
+	background:#fff;
+	padding: 0 50px 36px 50px;
+}
+
+.help_title {
+	width:250px;
+	height:40px;
+	line-height:38px;
+	color:#666;
+	font-size:18px;
+	text-align:center;
+	border-bottom:#F60 1px solid;
+	color:#f60;
+	font-family:'微软雅黑';
+	margin-bottom:0;
+}
+.help_smalltitle {
+	width:200px;
+	height:40px;
+	line-height:38px;
+	color:#666;
+	font-size:18px;
+	text-align:center;
+	border-bottom:#F60 1px solid;
+	color:#f60;
+	font-family:'微软雅黑';
+	margin-bottom:0;
+}
+.helpp{width:400px;}
+.mao{ width:auto; height:auto; background:#fafafa; padding-left:30px;}
+.mao a{ text-decoration:none; color:#036; border:none;}
+.head{ width:1000px; height:428px; margin:10px auto; background:url(../../images/modelTwo/ti.jpg)}
+.pad{ margin-top:0; border-top:1px solid #ccc; height:auto; padding:20px;}
+.list{ width:auto; height:40px; line-height:38px; margin-left:50px;}
+.liston{ border-bottom:2px solid #f60; background:#fcfaf1;}
+.list a{color:#666; text-decoration:none; font-family:'微软雅黑'; font-weight:200;}
+.list a:hover{ color:#f60;}
+.list li{ margin-right:5px;}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus{ border:none;}
+.dropdown-menu{ min-width:142px;}
+.dropdown-menu > li > a{ padding:3px 10px;}
+.nav-tabs{ border-bottom:none;}
+.question{ font-weight:200;font-family:'微软雅黑'; line-height:40px;}
+.answer{ font-weight:400;font-family:'微软雅黑'; line-height:40px; font-size:16px;}

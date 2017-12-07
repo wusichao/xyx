@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.xyxtech</groupId>
+	<artifactId>tk</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+	<name>tk</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<resource.path>${basedir}/src/main/resources</resource.path>
+		<resource.include>*.*</resource.include>
+	</properties>
+	
+	<profiles>
+		<profile>
+			<id>server</id>
+			<properties>
+				<resource.path>${basedir}/src/main/resources/server</resource.path>
+				<maven.test.skip>true</maven.test.skip>
+				<resource.include>*.*</resource.include>
+			</properties>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.xyxtech</groupId>
+			<artifactId>x</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>ROOT</finalName>
+		<resources>
+			<resource>
+				<targetPath>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</targetPath>
+				<filtering>true</filtering>
+				<directory>${resource.path}</directory>
+				<includes>
+					<include>${resource.include}</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/java/context</directory>
+							<targetPath>WEB-INF/classes/context</targetPath>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/base/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" href="date/css/jquery-ui-1.9.2.custom.css" type="text/css">
+<link href="css/base/base.css" rel="stylesheet"/>
+<link href="css/modelTwo/activity.css" rel="stylesheet"/>
+<link href="jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+<link href="jqGrid/css/ui.jqgridtttttttttt.css" rel="stylesheet"/>
+<title>活动管理</title>
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="js/base/bootstrap.js" type="text/javascript"></script>
+<script src="date/js/custom.js" type="text/javascript"></script>
+<script language="javascript" src="jqGrid/js/jquery.jqGrid.min.js"></script>
+<script language="javascript" src="jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script language="javascript" src="js/base/jquery.cookie.js"></script>
+<link href="css/swfupload-default.css" rel="stylesheet"/>
+<link href="css/lrtk.css" rel="stylesheet"/>
+<link href="css/magiczoomplus.css" rel="stylesheet"/>
+<script src="js/swfupload.js" type="text/javascript"></script>
+<script src="js/handlers.js" type="text/javascript"></script>
+<script src="js/mzp-packed.js" type="text/javascript"></script>
+<script src="js/modelTwo/activity.js" type="text/javascript"></script>
+<script type="text/javascript" src="date/js/jquery-ui-1.9.2.custom.js"></script>
+<script type="text/javascript" src="date/js/shareac.js"></script>
+
+</head>
+<body>
+<div id="activity">
+	<div id="ac_index">
+		<div id="ac_top" class="ac_top"> <span class="ac_t">活动管理</span> <span class="add">新增活动</span> </div>
+		<div id="ac_main">
+			<input id="ac_search" class="ac_bj inputtext fsize" style="padding-left:30px;" type="text" name="ac_search" placeholder="请输入活动名称" >
+			<select id="sousuo" class="status">
+				<option>所有状态</option>
+				<option>已结束</option>
+				<option>进行中</option>
+				<option>未开始</option>
+			</select>
+			<input id="searchButton" type="button" value="搜索" class="search" />
+			<div style=" margin:20px auto">
+				<table id="activity_grid">
+				</table>
+				<div id="activity_pager"></div>
+				
+			</div>
+			<div >
+			<hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			</ol>
+		</div>
+		</div>
+	</div>
+	<div id="addactivity"  style="display:none;">
+		<div id="activitytitle">
+			<ul>
+				<li id="ac_set" class="ac_li"><a href="javascript:;">新增活动</a></li>
+			</ul>
+			<a class="exit" id="ac_exit" href="javascript:;"><img src="images/modelTwo/exit.gif"/></a> 
+		</div>
+		<div id="setup" style="position:relative;">
+	<span id="sm" class="sm"><label class="cheng">到访分析：</label>只分析跳转到网站后的效果数据;<br/><label class="cheng">全程分析：</label>除了跳转到网站后的效果数据，还分析展示、点击数据。</span>
+			<form id="ac_form" enctype="multipart/form-data" >
+			<p class="steptext">基本信息</p>
+			<div class="ac_bors" >
+			<div style="margin-left:12px">
+				<div class="ac_line">
+					<label class="ac_labfon">名称</label>
+					<img class="ac_point" src="images/modelTwo/crc.gif"/>
+					<input id="acname" name="name" type="text" class="inputtext fsize" style="width:260px" placeholder="请输入活动名称" />
+					<label id="e" class="error"></label>
+				</div>
+				<div class="ac_line">
+					<label class="ac_labfon">花费</label>
+					<img class="ac_point" src="images/modelTwo/crc.gif"/>
+					<input id="acmoney" name="acmoney" class="inputtext money fsize" type="text" placeholder="请输入金额"/><label id="acmoneye" class="error"></label>
+				</div>
+				<div class="ac_line">
+					<label class="ac_labfon">活动周期</label>
+					<img class="ac_point" src="images/modelTwo/crc.gif"/>
+					<input name="startDate" id="startDate" class="startDate inputtime fsize" readonly  placeholder="开始时间" type="text">
+					<span class="ac_labl">-</span>
+					<input name="endDate" id="endDate" class="endDate inputtime fsize" readonly  placeholder="结束时间" type="text"  onChange="datePickers()"><label id="timee" class="error"></label>
+				</div>
+				<div class="ac_line">
+					<label class="ac_labfon">活动模式</label>
+					<img class="ac_point" src="images/modelTwo/crc.gif"/>
+					<select id="actc" style="width:108px;"  class="inputtext fsize">
+						<option value="0" selected="selected">到访分析</option>
+						<option value="1" >全程分析</option>
+					</select>
+					<img id="jd" src="images/modelTwo/wen.png" style="cursor:pointer;"/>
+				</div>
+				<div class="ac_line" id="costs">
+					<label class="ac_labfon">结算方式</label>
+					<img class="ac_point" src="images/modelTwo/crc.gif"/>
+					<input id="acdan" name="acdan" class="inputtext money fsize" type="text" placeholder="请输入单价"/><label id="acme" class="error"></label>
+					<span style="color:#999;">/</span>
+					<select id="acmethod" name="acmethod"  class="inputtext inputstyle fsize">
+						<!--<option>CPM</option>
+						<option>CPC</option>-->
+						<option  selected="selected">CPL</option>
+						<option>CPA</option>
+						<!--<option selected="selected">CPD</option>-->
+					</select>
+					
+				</div>
+				<div class="ac_line">
+					<label class="ac_labfon">活动地址</label>
+					<img class="ac_point" src="images/modelTwo/crc.gif"/>
+					<input name="acurl" id="acurl" type="text" class="inputtext http-right fsize"  placeholder="请输入广告点击后跳转到的网站地址" /><label id="acurle" class="error"></label>
+				</div>
+				<div id="trans">
+					<label class="ac_labfon">转化定义</label>
+<!-- 					<img class="ac_point"/><label id="poe"></label> -->
+					</div>
+					
+					</div>
+			</div>
+				<p class="steptext">渠道信息</p>	
+				<div class="ac_bors">
+				<div style="position:relative;">
+				<label class="ac_labfon" style="margin-left:12px;">渠道</label>
+				<img class="ac_point" src="images/modelTwo/crc.gif"/> 
+				<a class="ac_addtrend" id="ac_addtrend"  href="#ac_model" data-toggle="modal" ><img src="images/modelTwo/g.gif" style="margin-right:5px;"/>渠道管理</a>
+				<!--下边包括那两个select -->
+				<div class="cancel">
+					<span class="ac_select">
+						<label class="ac_font">选择所需渠道</label>
+						<select id="selectway" class="form-control selebor"  multiple="multiple">
+						</select>
+					</span>
+						<input type="button" class="ac_addremove topbtn" id="ac_way_chose" value=""/>
+						<input type="button" class="ac_addremove bottombtn" id="ac_way_remove" value=""/>
+					<span class="ac_selected">
+						<label class="ac_font" style="margin-left:80px;">已选择的渠道</label>
+						<select id="selectedway"  class="form-control seledbor" multiple="multiple">
+						</select><span id="nosele" class="error"></span>
+					</span>
+				</div>
+				
+				</div>
+				</div>
+				<p class="steptext">创意信息</p>	
+				<div class="ac_bors">
+				
+				<div id="idealmore" style="position:relative;">
+					<label class="ac_labfon" style="margin-left:12px;">创意</label>
+					<input type="button" id="one"  class="more_addideal " value="图片创意" onclick="startLoad()"/>
+					<button id="two"  class="more_addideal" data-target="#font_model" data-toggle="modal" onclick="return false">文字创意</button>
+			
+					<div id="moreideal" class="moreideal">
+						<div class="img">
+							<table id="tab">
+								<thead>
+									<tr class="theadtr">
+										<th>编号</th>
+										<th>创意图片</th>
+										<th>创意名称</th>
+										<th>上传时间</th>
+										<th>类型</th>
+										<th>删除</th>
+									</tr>
+								</thead>
+								<tbody>
+							
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div>
+					<input class="ac_set_save" id="ac_set_save"type="button" value="保存"/>
+					<input class="ac_set_reset" id="ac_set_reset" type="button" value="取消"/>
+					
+				</div>
+				
+			</form>
+		</div>
+		<div >
+			<hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			</ol>
+		</div>
+	</div>
+</div>
+
+<!-- 模态框（Modal）添加渠道 -->
+<div class="modal fade" id="ac_model" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+				<h4 class="modal-title" id="myModalLabel"> 渠道管理 </h4>
+				<div  align=center ><label id="sc_wayerror" class="error"></label></div>
+			</div>
+			<div class="modal-body">
+				<label class="ac_labfon">新增渠道</label>
+				<img class="ac_point" src="images/modelTwo/crc.gif"/>
+				<input id="wayname" class="inputtext" style="width:200px;" type="text" name="wayname" placeholder="请输入渠道名称"/>
+				<input class="addway" type="button" value="添加" id="addway"/>
+				<hr/>
+				<label class="ac_labfon">删除渠道</label>
+				<select id="moreremove" class=" form-control" style=" margin-left:40px;height:180px; width:200px; overflow:scroll" multiple="multiple" placeholder="请选择" >
+				</select>
+				<input class=" re" type="button" value="删除" id="removecancel"/>
+			</div>
+			<div class="modal-footer"> </div>
+		</div>
+		<!-- /.modal-content --> 
+	</div>
+	<!-- /.modal --> 
+</div>
+
+<div class="modal fade" id="imgphoto" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+				<h4 class="modal-title" id="myModalLabel"> 创意图片 </h4>
+			</div>
+			<div id="creativephoto" class="modal-body">
+			</div>
+			
+		</div>
+		<!-- /.modal-content --> 
+		
+	</div>
+	<!-- /.modal --> 
+</div>
+
+
+<!-- 模态框（Modal）添加渠道 -->
+<div class="modal fade" id="font_model" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+				<h4 class="modal-title" id="myModalLabel"> 文字类创意 </h4>
+				<div  align=center ><label id="sc_wayerror" class="error"></label></div>
+			</div>
+			<div class="modal-body">
+				<label class="ac_labfon">创意名称</label>
+				<img class="ac_point" src="images/modelTwo/crc.gif"/>
+				<input id="fontname" class="inputtext" type="text" name="fontname" placeholder="比如关键字等"/>
+				<input class="addway" type="button" value="添加" id="addfont"/>
+				<label class="error" id="fonterr"></label>
+			</div>
+			<div class="modal-footer"> </div>
+		</div>
+		<!-- /.modal-content --> 
+		
+	</div>
+	<!-- /.modal --> 
+</div>
+</body>
+</html>

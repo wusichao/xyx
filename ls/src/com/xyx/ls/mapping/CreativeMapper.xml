@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyx.ls.dao.CreativeMapper">
+<resultMap type="com.xyx.ls.model.campaign.Creative" id="CreativeMap">
+<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="path" property="path" jdbcType="VARCHAR" />
+		<result column="creation" property="creation" jdbcType="TIMESTAMP" />
+		<result column="removed" property="removed" jdbcType="BIT" />
+		<result column="last_modified" property="last_modified" jdbcType="TIMESTAMP" />
+</resultMap>
+
+<insert id="add" useGeneratedKeys="true" keyProperty="id">
+ 	insert into creative (name,path,creation,last_modified) values(
+ 	#{name},#{path},#{creation},#{last_modified}
+ 	)
+</insert>
+<insert id="addCreativeAccount">
+insert into account_creative_rel (account_id,creative_id)
+values (#{accountId},#{id})
+</insert>
+
+<delete id="delete">
+delete from creative where id in(#{ids})
+</delete>
+<delete id="deleteCreativeAccount">
+delete from account_creative_rel creative_id in(#{ids}) where account_id = #{accountId}
+</delete>
+
+<update id="update">
+	update creative set 
+	<if test="#{name}!=null">
+		name=#{name},</if>
+		<if test="#{path}!=null">
+		path=#{path}</if>
+		<if test="#{creation}!=null">
+		creation=#{creation},</if>
+		<if test="#{removed}!=null">
+		removed=#{removed},</if>
+		<if test="#{last_modified}!=null">
+		last_modified=#{last_modified}</if>
+		where id=#{id}
+</update>
+
+<select id="findByIds" resultMap="CreativeMap">
+	select * from creative where id in(#{ids})
+</select>
+
+<select id="findAll"  resultMap="CreativeMap">
+	select * from creative where name like CONCAT('%',#{name},'%')
+</select>
+<select id="findByCampaignId" resultType="java.lang.Integer">
+select * from campaign_creative_rel where campaign_id = #{id}
+</select>
+</mapper>

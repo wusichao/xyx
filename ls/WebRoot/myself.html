@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的账户</title>
+<!--头部和底部-->
+<link href="css/base/bootstrap.css" rel="stylesheet"/>
+<link href="css/base/layout.css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/modelOne/myuser-layout.css"/>
+<link href="css/base/base.css"  rel="stylesheet"/>
+
+
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+<script src="js/modelOne/usermgs.js" type="text/javascript"></script>
+<script src="js/base/html5shiv.js"type="text/javascript"></script>
+
+</head>
+
+<body>
+
+    <!--主题部分--> 
+    <div id="mymain">
+    	<ul class="clearfix">
+        	<li class="on"><a href="javascript:">我的账户</a></li>
+           <!-- <li><a href="javascript:">设置</a></li>-->
+            <li id="myshow"><a href="javascript:">修改密码</a></li>
+            <li id="myindent"><a href="javascript:">我的订单</a></li>
+        </ul>
+        <div class="content">
+			<div id="mymgs">
+				<form id="myform">  
+               <!-- <p>账户信息修改成功</p>-->              
+					<p><label class="ac_labfon labelwh">账户:</label><input style="background:none;" id="myname" class="mgs" name="email" type="text" value=""  disabled="disabled"/></p>
+                    <p><label class="ac_labfon labelwh">联系人:</label><input id="mycontact" class="mgs" name="contact"  type="text" value=""/><label class="error" id="mycontacte"></label></p>
+					<p> <label class="ac_labfon labelwh">联系电话:</label><input id="myphone" class="mgs" name="cellphone" type="text" value=""/><label class="error" id="myphonee"></label></p>
+					<p> <label class="ac_labfon labelwh">公司名称:</label><input style="background:none; border:none;"  class="mg"  id="mycompany"  name="company_name"   type="text" value=""  disabled="disabled"/></p>
+					<p> <label class="ac_labfon labelwh">行业:</label><select id="myindustry"  style="margin-left:5px; border:none; background:none;" name="vertical">
+						<option>汽车交通</option>
+						<option>食品饮料</option>
+						<option>日常用品</option>
+						<option>电商</option>
+						<option>IT</option>
+						<option>游戏</option>
+						<option>3C电器</option>
+						<option>通信</option>
+						<option>房地产</option>
+						<option>医疗</option>
+						<option>教育培训</option>
+						<option>旅游</option>
+						<option>金融</option>
+						<option>服装</option>
+						<option>药品</option>
+						<option>家居建材</option>
+						<option>其它</option>
+					</select><!--<img src="images/hui.gif"/>--><!--<input class="mgs" id="myindustry" name="vertical" type="text" value=""/> --></p>
+					<input id="myMgsSave" type="button" class="pwdsave" value="保存"/>
+					<input id="myremgs" type="button" class="pwdremove" value="取消"/>
+				</form>
+            </div>
+             
+			<!--<div class="adduser bobj">
+            <form id="mysetform">
+               <span class="setcyc" >
+                        <label class="lfont">效果数据回溯期</label>
+                        <input nane="recall" class="datatime" id="CycleData" type="text" value="">	
+                        <label class="lfont">天</label>
+                    </span> 
+                    <input class="save in" id="saveCycleData" type="button" value="保存"/>
+                        <input class="remove out" type="button" value="取消" id="myrecyc"/>
+				</form>   
+			</div>-->
+            
+			 <div id="netpwd" class=" adduser bobj ">
+				<form id="myuser-newpwd" >
+				<p class="showpwd">
+				
+ 					<label class="ac_labfon labelwh">旧密码*</label><input name="oldpwd" id="oldpwd" type="password" class=" showtext glyphicon-font"placeholder="请输入旧密码" aria-describedby="basic-addon1" ><span  id="pwderror" class="error"></span>
+                </p>
+				<p class="showpwd "> <label class="ac_labfon labelwh">新密码*</label><input name="newpwd" type="password" class=" showtext glyphicon-font" id="newerpwd" placeholder="请输入新密码" aria-describedby="basic-addon1" ><span  id="newpe" class="error"></span>
+                </p>
+				<p class="showpwd "> <label class="ac_labfon labelwh">确认新密码*</label><input id="newestpwd" name="testnewpwd" type="password" class=" glyphicon-font showtext"placeholder="请再次输入新密码" aria-describedby="basic-addon1" ><span  id="cnewpe" class="error"></span>
+                </p>
+				<input class="pwdsave" id="savePwd" type="button" value="保存" />
+				<input class="pwdremove" type="button" value="取消" id="myrepwd" />
+              
+                </form>
+             </div>
+             <div class="adduser bobj">
+				<form id="myident">  
+                <span class="ordercyc" >             
+					<p><label class="ac_labfon labelwh">功能名称:</label><input  id="Ordername" class="ordermgs"  type="text" readonly="readonly" /></p>
+                    <p><label class="ac_labfon labelwh">使用周期:</label><input id="Orderlimit"  class="ordermgs"  type="text" readonly="readonly"/></p>
+				</span>	
+				</form>
+            </div>
+             
+		</div>
+	</div>
+	</div>
+
+
+
+
+
+<span style="display:block; margin-top:20px; width:auto; height:auto;">
+<br/>
+
+	<hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			
+			</ol>
+</span>
+</div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>指标趋势</title>
+<link href="jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+<link href="jqGrid/css/ui.jqgridtttttttttt.css" rel="stylesheet"/>
+
+
+
+<link href="css/base/base.css" rel="stylesheet"/>
+<link href="css/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="css/modelTwo/bootstrap-select.min.css">
+<link href="css/modelTwo/Index_trend.css" rel="stylesheet"/>
+
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+<script src="js/base/echarts.js"></script>
+<script type="text/javascript" src="date/js/jquery-ui-1.9.2.custom.js"></script>
+
+<script language="javascript" src="jqGrid/js/jquery.jqGrid.min.js"></script>
+<script language="javascript" src="jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script language="javascript" src="js/base/jquery.cookie.js"></script>
+
+<script src="js/base/bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/modelTwo/bootstrap-selects.js"></script>
+<script type="text/javascript" src="date/js/share.js"></script>
+<script type="text/javascript" src="js/modelTwo/Index_trend.js"></script>
+</head>
+<body>
+<div id="trend">
+	<ol>
+		<li class="trend_title">指标趋势</li>
+	</ol>
+	<div id="trend_main">
+	<span style="position:relative;">
+    <label class="ac_labfon">活动</label>
+	<!--<a href="#" style="position:absolute;top:-4px; left:205px;" id="ts" rel="popover"  data-content="(1)不填写时,查询的数据为自然流量；(2)若想查询所有活动的数据，请在编辑框输入'all'。"><img src="images/modelTwo/note.png"/></a>
+    <input type="text" class="form-controls " name="trend_name" id="trend_name" placeholder="请输入活动名称"/>-->
+	 <select  id="trend_name"  class="selectpicker formse" data-live-search="true">
+   </select>
+    <label class="ac_labfon">日期</label>
+    <input name="startDate" id="startDate" class="startDate inputtime" style="margin-left:5px" readonly placeholder="开始时间" type="text" >~<input name="endDate" id="endDate" class="endDate inputtime" readonly  placeholder="结束时间" type="text"  onChange="datePickers()">
+    <input id="com_search" type="button" class="search bordercol"  value="查询"/>
+    <input class="con_btn" type="button"id="show" value=">>" />
+	</span>
+    <div id="more" class="more">
+    <span id="more_btn" style="display:none;">
+    <label class="ac_labfon ">渠道</label>
+   <select id="cannel" class="selectpicker formse" data-live-search="true" multiple>
+   </select>
+    <label class="ac_labfon">创意</label>
+	<select id="creative" class="selectpicker formse"  data-live-search="true" multiple>
+	</select>
+    </span>    
+    </div>
+    	
+   	 <div class="xinxi">
+<table id="no_camp" class="no_camp"  style="display:none;">
+<thead>
+	<tr>
+		<th>浏览数</th>
+		<th>浏览人数</th>
+		<th>浏览IP数</th>
+		<th>转化数</th>
+		<th>转化人数</th>
+		<th>转化IP数</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td id="no_visit"> - </td>
+		<td id="no_visitUser"> - </td>
+		<td id="no_visitIp"> - </td>
+		<td id="no_conv"> - </td>
+		<td id="no_convUser"> - </td>
+		<td id="no_convIp"> - </td>
+    </tr>
+</tbody>
+</table>
+
+<table id="simple1" class="no_camp">
+<thead>
+	<tr>
+		<th>花费(元)</th>
+		<th>到达数</th>
+		<th>到达人数</th>
+		<th>到达IP 数</th>
+		<th>浏览数</th>
+		<th>浏览人数</th>
+		<th>浏览IP 数</th>
+		
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td id="simple1_cost"> - </td>
+		<td id="simple1_reach"> - </td>
+		<td id="simple1_reachtUser"> - </td>
+		<td id="simple1_reachIp"> - </td>
+		<td id="simple1_visit"> - </td>
+		<td id="simple1_visitUser"> - </td>
+		<td id="simple1_visitIp"> - </td>
+		
+    </tr>
+</tbody>
+</table>
+<table id="simple2" class="no_camp">
+<thead>
+	<tr>
+		<th>转化数</th>
+		<th>转化人数</th>
+		<th>转化IP 数</th>
+		<th>转化率</th>
+		<th>CPL</th>
+		<th>CPA</th>
+		
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td id="simple2_conv"> - </td>
+		<td id="simple2_convUser"> - </td>
+		<td id="simple2_convIp"> - </td>
+    	<td id="simple2_convRate"> - </td>
+        <td id="simple2_cpl"> - </td>
+        <td id="simple2_cpa"> - </td>
+       
+    </tr>
+</tbody>
+</table>
+
+<table id="whole1"  class="no_camp" style="display:none;">
+<thead>
+	<tr>
+		<th>花费</th>
+		<th>展示数</th>
+		<th>展示人数</th>
+		
+		<th>点击数</th>
+		<th>点击人数</th>
+		
+		<th>到达数</th>
+		<th>到达人数</th>
+		
+		<th>浏览数</th>
+		<th>浏览人数</th>
+		
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td id="whole1_cost"> - </td>
+		<td id="whole1_imp"> - </td>
+		<td id="whole1_impUser"> - </td>
+		<td id="whole1_click"> - </td>
+		<td id="whole1_clickUser"> -</td>
+		<td id="whole1_reach"> - </td>
+		<td id="whole1_reachUser"> - </td>
+		<td id="whole1_visit"> - </td>
+		<td id="whole1_visitUser"> -</td>
+    </tr>
+</tbody>
+</table>
+<table id="whole2"  class="no_camp" style="display:none;">
+<thead>
+	<tr>
+		<th>转化数</th>
+		<th>转化人数</th>
+		<th>点击率</th>
+		<th>到达率</th>
+		<th>转化率</th>
+		<th>CPM</th>
+		<th>CPC</th>
+		<th>CPL</th>
+		<th>CPA</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+        <td id="whole2_conv"> - </td>
+        <td id="whole2_convUser"> - </td>
+        <td id="whole2_clickRate"> - </td>
+        <td id="whole2_reachRate"> - </td>
+		<td id="whole2_convRate"> - </td>
+		<td id="whole2_cpm"> - </td>
+		<td id="whole2_cpc"> - </td>
+		<td id="whole2_cpl"> - </td>
+		<td id="whole2_cpa"> - </td>
+    </tr>
+</tbody>
+</table>
+      </div>
+    	
+      <div id="no_trend" style="display:none;">
+      </div>
+	  <div id="simple_trend">
+      </div>
+	  <div id="whole_trend"  style="display:none;">
+      </div>
+	  <div class="exportBtn">
+      <a id="trendexport" class="trendexport bordercol" href="javascript:;" >导出</a>
+	  </div>
+	<span id="no_comp_grid"  style="display:none">
+    <table id="no_grid"></table>
+ 	<div id="no_pager"></div>
+	</span>
+	<span id="has_simple_grid"  style="display:none"> 
+	<table id="simple_grid"></table>
+ 	<div id="simple_pager"></div> 
+	</span>
+	<span id="has_whole_grid"  style="display:none">
+	<table id="whole_grid"></table>
+ 	<div id="whole_pager"></div>
+	</span> 
+    </div>
+	<div>
+		<hr/>
+		<ol class="breadcrumb" style="text-align:center; background:none">
+			<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+		</ol>
+	</div>
+</div>
+</body>
+</html>

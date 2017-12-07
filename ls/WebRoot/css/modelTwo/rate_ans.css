@@ -1,0 +1,106 @@
+@charset "utf-8";
+/* CSS Document */
+
+#clic{ position:relative; width:auto; height:auto; background:#fff; padding:36px 3%;}
+.ac_li{ width:150px;
+	height:39px;
+	color:#666;
+	font-size:18px;
+	text-align:center;
+	border-bottom:#F60 1px solid;
+	color:#f60;}
+#bar{
+	width:100%;
+	height:400px;
+	border:1px solid #eee;
+	margin-right:10px;
+	margin-top:10px;
+}
+#clic_main{ width:auto; height:auto; border-top:#CCC 1px solid; padding:22px 2% 10px 2%;}
+.inputtime {
+	margin-left:5px;
+	width:80px;
+	height:30px;
+	padding-left:5px;
+	font-size:12px;
+	color:#999;
+	border:1px solid #ccc;
+	-webkit-transition:all 0.25s linear;
+	-moz-transition:all 0.25s linear;
+	transition:all 0.25s linear;
+	border-radius:4px;
+}
+.tabs{ padding-top:20px;}
+.ac_labfon {
+	display: inline-block;
+	width:auto;
+	height:auto;
+	/*margin-right:3px;*/
+	color:#666;
+	font-size:15px;
+	font-weight:200;
+	line-height:30px;
+}
+.time{ width:78px !important; margin-right:0 !important;}
+.leftm{ width:78px !important;  margin-left:0 !important; margin-right:15 !important;}
+.search {
+	margin-left:20px;
+	width:64px;
+	height:30px;
+	border:#eee 1px solid;
+	border-radius:5px;
+	color:#afafaf;
+	background:#FFF url(../../images/modelTwo/s.gif) no-repeat 5px center;
+	padding-left:10px;
+	font-size:14px;
+}
+
+.more {
+	/*margin-top:10px;*/
+	/*margin-bottom:10px;*/
+	width:auto;
+	height:30px;
+}
+/*.bochannel{ width:200px; height:30px; margin-left:5px; margin-right:15px;}*/
+.trendexport {
+	position:absolute;
+	top:0px;
+	right:0px;
+	display:inline-block;
+	text-align:left;
+	width:70px;
+	height:30px;
+	border:#eee 1px solid;
+	border-radius:5px;
+	color:#afafaf;
+	background:#FFF url(../../images/modelTwo/t.gif) no-repeat 5px center;
+	padding-left:30px;
+	padding-top:6px;
+	font-size:14px;
+}
+.st_btn{
+	width:30px;
+	height:30px;
+	background:#999;
+	color:#fff;
+	border:none;
+	border-radius:50%;
+	font-size:10px;
+	margin-right:10px;
+}
+.obtn_selecteds {
+	background:#f60;
+ 
+}
+.con_btn {
+	width:30px;
+	height:30px;
+	background:#fff;
+	border:1px solid #ccc;
+	border-radius:3px;
+	margin-left:34px;
+}
+.form-controls{ width:160px;}
+.bordercol:hover{border:#fc3 1px solid}
+.s{border:#fc3 1px solid}
+.tabc{ margin-top:10px; width:100%; height:auto; position:relative; padding-top:40px;}

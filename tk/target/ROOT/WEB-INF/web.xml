@@ -1,0 +1,164 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		classpath:/context/context.xml;
+		classpath:/context/ic.xml;
+		classpath:/context/rc.xml;
+		classpath:/context/cvt.xml;
+		classpath:/context/cm.xml;
+		
+		</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>imp</servlet-name>
+		<servlet-class>com.xyx.x.servlet.XServlet</servlet-class>
+		<init-param>
+			<param-name>adapter</param-name>
+			<param-value>impAdapter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>inputters</param-name>
+			<param-value>acitonInputter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>processors</param-name>
+			<param-value>responseTimeProcessor,impLogProcessor</param-value>
+		</init-param>
+		<init-param>
+			<param-name>outputters</param-name>
+			<param-value>pixelOutputter</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>imp</servlet-name>
+		<url-pattern>/i</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>click</servlet-name>
+		<servlet-class>com.xyx.x.servlet.XServlet</servlet-class>
+		<init-param>
+			<param-name>adapter</param-name>
+			<param-value>clickAdapter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>inputters</param-name>
+			<param-value>acitonInputter</param-value>
+		</init-param>
+		<init-param>	
+			<param-name>processors</param-name>
+			<param-value>responseTimeProcessor,clickLogProcessor</param-value>
+		</init-param>
+		<init-param>
+			<param-name>outputters</param-name>
+			<param-value>redirectOutputter</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>click</servlet-name>
+		<url-pattern>/c</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>reach</servlet-name>
+		<servlet-class>com.xyx.x.servlet.XServlet</servlet-class>
+		<init-param>
+			<param-name>adapter</param-name>
+			<param-value>rcAdapter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>inputters</param-name>
+			<param-value>acitonInputter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>processors</param-name>
+			<param-value>responseTimeProcessor,reachLogProcessor</param-value>
+		</init-param>
+		<init-param>
+			<param-name>outputters</param-name>
+			<param-value>cookieOutputter,pixelOutputter</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>reach</servlet-name>
+		<url-pattern>/r</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>cvt</servlet-name>
+		<servlet-class>com.xyx.x.servlet.XServlet</servlet-class>
+		<init-param>
+			<param-name>adapter</param-name>
+			<param-value>cvtAdapter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>inputters</param-name>
+			<param-value>acitonInputter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>processors</param-name>
+			<param-value>responseTimeProcessor,cvtLogProcessor</param-value>
+		</init-param>
+		<init-param>
+			<param-name>outputters</param-name>
+			<param-value>pixelOutputter</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cvt</servlet-name>
+		<url-pattern>/v</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>cm</servlet-name>
+		<servlet-class>com.xyx.x.servlet.XServlet</servlet-class>
+		<init-param>
+			<param-name>adapter</param-name>
+			<param-value>cmAdapter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>inputters</param-name>
+			<param-value>servletUserInputter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>outputters</param-name>
+			<param-value>cmRedirectOutputter</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cm</servlet-name>
+		<url-pattern>/m</url-pattern>
+	</servlet-mapping>
+	
+	<error-page>
+		<error-code>400</error-code>
+		<location>/index.html</location>
+	</error-page>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/index.html</location>
+	</error-page>
+
+	<error-page>
+		<error-code>417</error-code>
+		<location>/index.html</location>
+	</error-page>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/index.html</location>
+	</error-page>
+	
+</web-app>

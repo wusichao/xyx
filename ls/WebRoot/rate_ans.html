@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+<link href="jqGrid/css/ui.jqgridtttttttttt.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="css/modelTwo/bootstrap-select.min.css">
+<link href="css/base/base.css" rel="stylesheet"/>
+<link href="css/base/bootstrap.css" rel="stylesheet"/>
+<link href="css/modelTwo/rate_ans.css" rel="stylesheet"/>
+<title>频次分析</title>
+</head>
+<body>
+<div id="clic">
+	<ol>
+		<li class="ac_li">频次分析</li>
+	</ol>
+	<div id="clic_main">
+		<label class="ac_labfon">活动</label>
+		<input type="text" class="form-controls " placeholder="请输入活动名称" name="rate_name" id="rate_name"/>
+		<label class="ac_labfon ">渠道</label>
+		<select id="cannel" data-live-search="true" class="bochannel selectpicker formse"></select>
+		<label class="ac_labfon">日期</label>
+		<input name="startDate" id="startDate" class="startDate inputtime" readonly  type="text"/>~
+		<input name="endDate" id="endDate" class="endDate inputtime" style="margin-left:0" readonly  type="text"/>
+		<input id="search" type="button" class="search bordercol"  value="查询"/>
+		<div class="tabc">
+		 <a id="ratexport" class="trendexport bordercol" href="javascript:;" >导出</a>
+			<table id="rate_grid">
+			</table>
+			<div id="rate_pager"></div>
+		</div>
+	</div>
+	<div>
+		<hr/>
+		<ol class="breadcrumb" style="text-align:center; background:none">
+			<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+		</ol>
+	</div>
+</div>
+<div class="modal fade" id="ippc" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+				<h4 class="modal-title" id="myModalLabel"> 同IP展示频次分析 </h4>
+			</div>
+			<div class="modal-body">
+			<div id="bar" style="width:860px; height:400px; background:#03F"></div>
+			</div>
+			
+		</div>
+		<!-- /.modal-content --> 
+		
+	</div>
+	<!-- /.modal --> 
+</div>
+
+
+
+<div class="modal fade" id="yhpc" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+				<h4 class="modal-title" id="myModalLabel"> 同用户展示频次分析 </h4>
+			</div>
+			<div class="modal-body">
+			<div id="yhbar" style="width:860px; height:400px; background:#03F"></div>
+			</div>
+			
+		</div>
+		<!-- /.modal-content --> 
+		
+	</div>
+	<!-- /.modal --> 
+</div>
+
+
+
+
+<script src="js/base/echarts.js"></script>
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="date/js/jquery-ui-1.9.2.custom.js"></script>
+<script language="javascript" src="jqGrid/js/jquery.jqGrid.min.js"></script>
+<script language="javascript" src="jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script language="javascript" src="js/base/jquery.cookie.js"></script>
+<script src="js/base/bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/modelTwo/bootstrap-select.js"></script>
+<!--<script type="text/javascript" src="date/js/share.js"></script>-->
+<script src="js/modelTwo/rate_ans.js"type="text/javascript"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+</body>
+</html>

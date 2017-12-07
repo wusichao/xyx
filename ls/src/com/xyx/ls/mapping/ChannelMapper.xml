@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyx.ls.dao.campaign.ChannelMapper">
+	<resultMap type="com.xyx.ls.model.campaign.Channel" id="ChannelMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="creation" property="creation" jdbcType="TIMESTAMP" />
+		<result column="removed" property="removed" jdbcType="BIT" />
+		<result column="last_modified" property="last_modified"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap type="com.xyx.ls.bean.ReportBean" id="reportMap">
+		<result column="conversion" property="convertion" jdbcType="BIGINT" />
+	</resultMap>
+	<insert id="add" useGeneratedKeys="true" keyProperty="id">
+		insert into channel (name,creation,removed,last_modified) values(
+		#{name},#{creation},#{removed},#{last_modified}
+		)
+	</insert>
+	<insert id="addChannelAccount">
+		insert into account_channel_rel (account_id,channel_id)
+		values (#{0},#{1})
+	</insert>
+
+	<delete id="delete">
+		delete from channel where id in(#{0})
+	</delete>
+	<delete id="deleteAccountChannel">
+		delete from account_channel_rel WHERE channel_id in(#{0})
+	</delete>
+	<delete id="deleteCampaignCannel">
+		delete from campaign_channel_rel where channel_id in(#{0})
+	</delete>
+
+	<update id="update">
+		update channel set
+		<if test="#{name}!=null">
+			name=#{name},
+		</if>
+		<if test="#{removed}!=null">
+			removed=#{removed},
+		</if>
+		<if test="#{last_modified}!=null">
+			last_modified=#{last_modified}
+		</if>
+		where id=#{id}
+	</update>
+
+	<select id="findByIds" resultMap="ChannelMap">
+		select * from channel where id in(#{ids})
+	</select>
+
+	<select id="findAll" resultMap="ChannelMap">
+		select * from channel where name like CONCAT('%',#{name},'%')
+	</select>
+	<select id="findByCanpaignId" resultMap="ChannelMap">
+		select * from channel where id in(
+		select channel_id from campaign_channel_rel where campaign_id = #{id})
+	</select>
+	<select id="findAllByAccount" resultMap="ChannelMap">
+		select * from channel where id in(
+		select channel_id from account_channel_rel where account_id = #{1})
+	</select>
+	<select id="findCampaignByChannel" resultType="java.lang.Integer">
+		select count(campaign_id) from campaign_channel_rel where channel_id
+		in(#{ids})
+	</select>
+	<select id="isChannelData" resultMap="ChannelMap">
+		SELECT * FROM channel c INNER JOIN campaign_channel_rel ccl ON c.id=ccl.channel_id 
+		WHERE ccl.campaign_id=#{0} AND c.id IN (SELECT channel_id FROM rpt_base WHERE campaign_id=#{0})
+	</select>
+	<select id="ChannelData" resultMap="ChannelMap">
+	SELECT * FROM channel c INNER JOIN campaign_channel_rel ccl ON c.id=ccl.channel_id 
+		WHERE ccl.campaign_id=#{0} AND c.id not IN (SELECT channel_id FROM rpt_base WHERE campaign_id=#{0})
+	</select>
+</mapper>

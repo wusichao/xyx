@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="refresh" content="10;URL=loginUI.do">
+<link rel="stylesheet" href="/ls/css/base/bootstrap.css">
+<script src="/ls/js/base/jquery-1.11.1.min.js"></script>
+<title>免审注册成功</title>
+<link href="/ls/css/modelOne/after-re.css" rel="stylesheet"/>
+<script>
+$(function(){
+	djstime();
+$("#afterregister").click(function(){
+	
+	
+		window.location.href = "loginUI.do"
+
+});
+})
+	function djstime(){
+				var i=9;
+				var interval=setInterval(function(){
+					$("#retime").text(i);
+					//$("#getCode").attr("disabled",true);
+					i--;
+					if(i<0){
+						//$("#getCode").attr("disabled",false);
+						//$("#getCode").val("重新获取");
+						clearInterval(interval);	
+						window.location.href = "loginUI.do"
+					}
+				},1000);	
+			}
+			
+</script>
+</head>
+
+<body>
+<div id="header" class="header clearfix vertical-container container" >
+	<img class="fl" src="/ls/images/modelTwo/logo.gif" title="灵石" alt="LOGO"/>
+	<h2 class="fl">灵石大数据平台</h2>
+	<h5 class="fl">从此，互联网营销更可控！</h5>
+</div>
+<div class="afbox">
+<p class="aft">恭喜您，注册成功！</p>
+<p class="aftercon"><strong>确认邮件已发送到您的注册邮箱</strong></p>
+<p class="aftercon">请注意查收......</p>
+<p class="aftercon"><span id="retime">10</span>s后自动跳转到登陆页面</p>
+<p class="aftercon"><input id="afterregister" class="sub" style="" type="button" value="确定"/></p>
+</div>
+<div >
+			<hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			</ol>
+		</div>
+
+</body>
+</html>

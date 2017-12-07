@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="../css/base/bootstrap.css" rel="stylesheet"/>
+<link type="text/css" href="../css/modelTwo/bootstrap-select.min.css" rel="stylesheet">
+<link href="../jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+<link href="../jqGrid/css/ui.jqgridtttttttttt.css" rel="stylesheet"/>
+<link href="../css/base/base.css" rel="stylesheet"/>
+<link href="../css/modelThree/indentman.css" rel="stylesheet" />
+
+<script src="../js/base/jquery-1.11.1.min.js" type="text/javascript"></script> 
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+<script src="../js/base/bootstrap.js" type="text/javascript"></script> 
+<script type="text/javascript" src="../js/modelTwo/bootstrap-select.js"></script> 
+<script type="text/javascript" src="../date/js/jquery-ui-1.9.2.custom.js"></script> 
+<script language="javascript" src="../jqGrid/js/jquery.jqGrid.min.js"></script> 
+<script language="javascript" src="../jqGrid/js/i18n/grid.locale-cn.js"></script> 
+<script language="javascript" src="../js/base/jquery.cookie.js"></script> 
+<script type="text/javascript" src="../date/js/shareac.js"></script> 
+<script language="javascript" src="../js/modelThree/indentman.js"></script>
+
+
+
+
+
+<title>订单管理</title>
+</head>
+<body>
+<div id="wrap">
+	<ul >
+		<li class="indent_title">订单管理</li>
+	</ul>
+	<div class="indent_main">
+		<input id="indent_name" type="text" name="indent_name" placeholder="请输入客户名称" >
+		<select id="status" class="status">
+				<option>所有状态</option>
+				<option>已结束</option>
+				<option selected='selected'>进行中</option>
+				<option>未开始</option>
+			</select>
+		
+		<button id="searchButton">搜索</button>
+		<a id="adindent"  class="addindent" data-toggle="modal"  data-target="#addindent" href="javascript:;">+新增订单</a>
+		<div class="mar">
+			<table id="indent_grid">
+			</table>
+			<div id="indent_pager"></div>
+		</div>
+	</div>
+</div>
+<div >
+	<hr/>
+	<ol class="breadcrumb" style="text-align:center; background:none">
+		<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+	</ol>
+</div>
+
+
+
+
+<div class="modal fade" id="addindent" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+				<h4 class="modal-title" id="myModalLabel"> 新增订单信息 </h4>
+				<div class="error" style="text-align:center" id="err"></div>
+			</div>
+			<div class="modal-body">
+			<div style="margin:20px auto">
+				<div class="ac_line" style="margin-left:60px;">
+					<label class="ac_labfon">客户名称</label>
+					<select id="user_name" data-live-search="true" class="selectpicker">
+					</select>
+					<!--<input id="user_name" name="user_name" type="text" class="inputtext fsize" style="width:260px" placeholder="请输入客户名称" />--> 
+					
+				</div>
+				<div class="ac_line" style="margin-left:60px;" >
+					<label class="ac_labfon">功能名称</label>
+					<input name="biaozhun" id="biaozhun" class="inputtime" readonly type="text"  title="" value="">
+					+<select id="pruduct_name" class="selectpicker gongn " multiple="multiple"> </select>
+				</div>
+				<div class="ac_line" style="margin-left:60px;">
+					<label class="ac_labfon">使用期限</label>
+					<input name="startDate" id="startDate" class="startDate inputtime" readonly  placeholder="开始时间" type="text">
+					<span class="ac_labl">-</span>
+					<input name="endDate" id="endDate" class="endDate inputtime" readonly  placeholder="结束时间" type="text"  onChange="datePickers()">
+					
+				</div>
+				<div class="ac_line" style="margin-left:60px;">
+					<label class="ac_labfon">订单类型</label>
+					<select id="indent_style"  class="selectpicker time">
+					<option>试用</option>
+					<option>免费</option>
+					<option>付费</option>
+					</select>
+				</div>
+				<div style="margin-top:20px; margin-left:155px; margin-bottom:20px;">
+				<input type="button" value="确定" id="addok" class="addok"/>
+				<input type="button" value="取消" id="reout" class="reout"/>
+				</div>
+			</div>
+			</div>
+		</div>
+		<!-- /.modal-content --> 
+		
+	</div>
+	<!-- /.modal --> 
+</div>
+
+</body>
+</html>

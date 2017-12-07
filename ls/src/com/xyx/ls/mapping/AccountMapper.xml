@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyx.ls.dao.account.AccountMapper">
+	<resultMap id="AccountResultMap" type="com.xyx.ls.model.account.Account">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+		<result column="contact" property="contact" jdbcType="VARCHAR" />
+		<result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+		<result column="invitation_code" property="invitation_code"
+			jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="approved" property="approved" jdbcType="BIT" />
+		<result column="company_name" property="company_name" jdbcType="VARCHAR" />
+		<result column="vertical" property="vertical" jdbcType="VARCHAR" />
+		<result column="web_site" property="web_site" jdbcType="VARCHAR" />
+		<result column="license_path" property="license_path" jdbcType="VARCHAR" />
+		<result column="active" property="active" jdbcType="BIT" />
+		<result column="attribution_Cycle" property="attributionCycle"
+			jdbcType="BIGINT" />
+		<result column="last_modified" property="last_modified" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="saveAccount" parameterType="com.xyx.ls.model.account.Account" useGeneratedKeys="true" keyProperty="id">
+		insert into account
+		(email, passWord,contact,cellphone,invitation_code, company_name,
+		vertical,web_site,license_path,last_modified
+		)
+		values (#{email,jdbcType=VARCHAR},
+		#{passWord,jdbcType=VARCHAR},#{contact,jdbcType=VARCHAR},#{cellphone,jdbcType=VARCHAR},
+		#{invitation_code,jdbcType=VARCHAR}, #{company_name,jdbcType=VARCHAR},
+		#{vertical,jdbcType=VARCHAR},#{web_site,jdbcType=VARCHAR},#{license_path,jdbcType=VARCHAR},#{last_modified,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<update id="approval">
+		update account
+		set status = #{1,jdbcType=VARCHAR}
+		where id = #{0}
+	</update>
+	<update id="isApproval">
+		update account
+		set approved = b'1'
+		where id = #{0}
+	</update>
+	<update id="noApproval">
+		update account
+		set approved = b'0'
+		where id = #{0}
+	</update>
+
+
+	<select id="findAccountApproved" resultMap="AccountResultMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT * FROM account
+		WHERE
+		STATUS ='未审核' and removed=b'0' and company_name like '%${company_name}%' ORDER
+		BY ${sidx} ${sord} limit ${start},${rowpage} 
+	</select>
+	<select id="findAccountNoApproved" resultMap="AccountResultMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT * FROM account
+		WHERE
+		STATUS !='未审核' and removed=b'0' and company_name like '%${company_name}%'
+		ORDER
+		BY ${sidx} ${sord} limit ${start},${rowpage}
+	</select>
+
+	<select id="getRecords" resultType="java.lang.Integer">
+		SELECT count(*) FROM account
+		WHERE STATUS ='未审核' and removed=b'0' and company_name like CONCAT('%',
+		#{0},'%')
+	</select>
+	<select id="getIsRecords" resultType="java.lang.Integer">
+		SELECT count(*) FROM
+		account
+		WHERE STATUS !='未审核'  and removed=b'0' and company_name like CONCAT('%',
+		#{0},'%')
+	</select>
+
+	<select id="login" resultMap="AccountResultMap">
+		SELECT * FROM account where
+		email=#{0,jdbcType=VARCHAR} and
+		password=#{1,jdbcType=VARCHAR}
+		and
+		approved =b'1' and removed=b'0'  
+	</select>
+
+	<select id="findByEmail" resultMap="AccountResultMap">
+		SELECT * FROM account
+		where
+		email=#{email}  and removed=b'0'
+		and id !=#{id} limit 1
+	</select>
+	<select id="findByCompanyname" resultMap="AccountResultMap">
+		SELECT * FROM account
+		where company_name=#{company_name}  and removed=b'0' and id !=#{id} limit 1
+	</select>
+	<select id="findByWebsite" resultMap="AccountResultMap">
+		SELECT * FROM account
+		where
+		web_site=#{web_site}  and removed=b'0' and id !=#{id} limit 1
+	</select>
+	<select id="findEmailById" resultType="java.lang.String">
+		SELECT email FROM account
+		where id=#{id}  and removed=b'0'
+	</select>
+	<select id="findByEmailIsApproved" resultMap="AccountResultMap">
+		SELECT * FROM
+		account
+		where email=#{email} and removed=b'0' and approved =b'1'
+	</select>
+	<update id="resetPassword">
+		update account set password=#{1} where email = #{0} 
+	</update>
+	<update id="update"> 
+ 		update account 
+		set<if test="#{email}!=null"> 
+ 		email=#{email},</if> 
+ 		<if test="#{passWord}!=null"> 
+ 		passWord=#{passWord},</if> 
+ 		<if test="#{company_name}!=null"> 
+		company_name=#{company_name},</if>
+		<if test="#{contact}!=null"> 
+		contact=#{contact},</if> 
+ 		<if test="#{cellphone}!=null"> 
+		cellphone=#{cellphone},</if> 
+ 		<if test="#{invitation_code}!=null"> 
+		invitation_code=#{invitation_code},</if> 
+ 		<if test="#{vertical}!=null"> 
+ 		vertical=#{vertical},</if> 
+		<if test="#{web_site}!=null"> 
+		web_site=#{web_site},</if> 
+ 		<if test="#{license_path}!=null"> 
+		license_path=#{license_path}</if> 
+		where id=#{id} 
+	</update> 
+	<update id="updataAttributionCycle">
+		update account
+		set attribution_cycle = #{1} where
+		email=#{0}
+	</update>
+	<select id="getApprovedCompanynameList" resultMap="AccountResultMap">
+	SELECT * FROM (
+SELECT company_name ,1 AS id  FROM  account a LEFT JOIN orders o ON  a.id= o.account_id WHERE NOW() BETWEEN o.begin_date AND o.end_date AND a.approved =b'1' AND a.email !='admin' 
+UNION ALL
+SELECT company_name ,0 AS id  FROM  account a LEFT JOIN orders o ON  a.id= o.account_id WHERE NOW() NOT BETWEEN o.begin_date AND o.end_date AND  a.approved =b'1' AND a.email !='admin' 
+UNION ALL
+SELECT company_name ,0 AS id  FROM  account a LEFT JOIN orders o ON  a.id= o.account_id WHERE o.id IS NULL
+)wsc ORDER BY company_name 
+	</select>
+	<select id="findById" resultMap="AccountResultMap">
+	select * from account where id=#{0}  and removed=b'0'
+	</select>
+	<update id="changeStutas">
+	update account set status ='未审核' where id=#{0}
+	</update>
+	<insert id="savaInvitationCode">
+	insert into invitation_code (code,creation) values(#{0},#{1}) 
+	</insert>
+	<select id="findInvitationCodeStatus" resultType="java.lang.String">
+	select status from invitation_code where code=#{0}
+	</select>
+	<update id="updateCodeStatus">
+	update invitation_code set status = '已使用' where code =#{0}
+	</update>
+	<select id="findAccountNoApprove" resultMap="AccountResultMap">
+	select * from account where email=#{0} and password =#{1} and approved =b'0' and removed=b'0'
+	</select>
+	<update id="deleteAccount">
+	update account set removed = b'1' where id=#{0}
+	</update>
+</mapper>

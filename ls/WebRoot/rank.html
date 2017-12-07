@@ -1,0 +1,117 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>维度排名</title>
+<link href="jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+<link href="jqGrid/css/ui.jqgridtttttttttt.css" rel="stylesheet"/>
+<link href="css/base/bootstrap.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="css/modelTwo/bootstrap-select.min.css"/>
+<link href="css/base/base.css" rel="stylesheet"/>
+<link href="css/modelTwo/rank.css" rel="stylesheet"/>
+<script src="js/base/echarts.js"></script>
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+<script src="js/base/bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/modelTwo/bootstrap-select.js"></script>
+<script type="text/javascript" src="date/js/jquery-ui-1.9.2.custom.js"></script>
+<script language="javascript" src="jqGrid/js/jquery.jqGrid.min.js"></script>
+<script language="javascript" src="jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script language="javascript" src="js/base/jquery.cookie.js"></script>
+<script type="text/javascript" src="date/js/share.js"></script>
+<script src="js/modelTwo/rank.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="rank">
+	<ol>
+		<li class="rank_title">维度排名</li>
+	</ol>
+	<div id="rank_main">
+		<label class="ac_labfon">活动</label>
+		 <select  id="rank_name"  class="selectpicker formse" data-live-search="true">
+   </select>
+		<label class="ac_labfon">活动日期</label>
+		<input name="startDate" id="startDate" class="startDate inputtime" readonly  placeholder="开始时间" type="text" >~<input name="endDate" id="endDate" class="endDate inputtime" readonly   placeholder="结束时间" type="text"    onChange="datePickers()">
+		<label class="ac_labfon rank_w">维度</label>
+		<span id="obtn">
+		<span style="position:relative"><input type="button" value="渠道" class="searchbtns so bordercol" id="rank_channel"  rel="popover"  data-content="查看渠道数据必须选择活动名称"/><img id="qu" style="position:absolute;top:-4px; left:63px; cursor:pointer" src="images/modelTwo/note.png"  rel="popover"  data-content="查看渠道数据时，需先选择活动"/> 
+		<input type="button" value="创意"  class="searchbtns st bordercol" id="rank_cretive"/><img id="chuang" style="position:absolute;top:-4px; left:143px; cursor:pointer" src="images/modelTwo/note.png"  rel="popover"  data-content="查看创意数据时，需先选择活动"/>
+		<input type="button" value="地域"  class="searchbtns sth bordercol" id="rank_territory"/>
+		<input type="button" value="时段"  class="searchbtns sf bordercol" id="rank_time"/>
+		</span>
+		</span> <br/>
+		
+		<div id="lbtn" class="lbtn">
+		 <span  id="rank_ch" style="display:none;" >
+			<input type="button" value="花费" class="st_btn obtn_selecteds" id="rank_ch_cost"/>
+			<input type="button" value="展示" class="st_btn" id="rank_ch_imp"/>
+			<input type="button" value="点击" class="st_btn" id="rank_ch_click"/>
+			<input type="button" value="到达" class="st_btn" id="rank_ch_reach"/>
+			<input type="button" value="浏览" class="st_btn" id="rank_ch_visit"/>
+			<input type="button" value="转化" class="st_btn" id="rank_ch_conversion"/>
+			</span>
+			 <span  id="rank_cr" style="display:none;">
+			<input type="button" value="花费" class="st_btn obtn_selecteds" id="rank_cr_cost"/>
+			<input type="button" value="展示" class="st_btn" id="rank_cr_imp"/>
+			<input type="button" value="点击" class="st_btn" id="rank_cr_click"/>
+			<input type="button" value="到达" class="st_btn" id="rank_cr_reach"/>
+			<input type="button" value="浏览" class="st_btn" id="rank_cr_visit"/>
+			<input type="button" value="转化" class="st_btn" id="rank_cr_conversion"/>
+			</span> 
+			<span id="rank_lo" style="display:none;">
+			<input type="button" value="省份" class="st_btn obtn_selecteds" id="rank_pro"/>
+			<input type="button" value="城市" class="st_btn" id="rank_city"/>
+			</span> 
+			</div>
+		<div id="echarts" style="width:100%">
+			<div id="pie"> </div>
+			<div id="map" style="display:none"> </div>
+			<div id="bar"  style="display:none"> </div>
+			<div id="line"  style="display:none"> </div>
+		</div>
+		<div class="exportBtn">
+      <a id="rankexport" class="trendexport bordercol" href="javascript:;" >导出</a></div>
+		<div align="center">
+			<div id='channel_grid' style="display: none"><table id="channelrank_grid"></table>
+				<div id="channelrank_pager"></div> 
+			</div>
+		
+			<div id='creative_grid' style="display: none"><table id="creativerank_grid"></table>
+				<div id="creativerank_pager"></div> 
+			</div>
+		
+			<div id='city_grid' style="display: none"><table id="cityrank_grid"></table>
+				<div id="cityrank_pager"></div> 
+			</div>
+		
+			<div id='hour_grid' style="display: none"><table id="hourrank_grid"></table>
+				<div id="hourrank_pager"></div> 
+			</div>
+		</div>
+ 	</div>
+	<div>
+		<hr/>
+		<ol class="breadcrumb" style="text-align:center; background:none">
+			<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+		</ol>
+	</div>
+</div>
+</body>
+</html>

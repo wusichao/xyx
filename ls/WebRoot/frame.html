@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+<title>灵石</title>
+
+<script>
+function cha(){
+$("#mid").attr('cols','70,*');
+}
+function nocha(){
+$("#mid").attr('cols','180,*');
+}
+</script>
+
+</head>
+
+<frameset rows="50,*" frameborder="0">
+	<frame name="head" src="head.html" frameborder="0" scrolling="no">
+	<frameset id="mid" cols="180,*" frameborder="0">
+	<frame name="left" scrolling="no" src="left.html" frameborder="0">
+	<frame src="activity.html" name="content" frameborder="0">
+</frameset>
+</frameset>
+<noframes></noframes>
+</html>

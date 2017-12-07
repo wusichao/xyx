@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>左侧</title>
+
+<link href="css/modelTwo/left.css" rel="stylesheet"/>
+<link href="jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+<script src="js/base/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});});	
+</script>
+<script type="text/javascript" src="date/js/jquery-ui-1.9.2.custom.js"></script>
+<script src="js/modelTwo/left.js" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+<img id="shku" style="position:fixed; left:28px; top:30px; display:none; cursor:pointer;" src="images/modelTwo/u258.jpg"/>
+<div class="left fl">
+	<img id="list" class="listimg" src="images/modelTwo/u259.png"/>
+	<ul>
+		<li  class="vertical-container ac_font ac_on "><a class="vertical-container" href="activity.html" target="content"><i class="ac_lif" title="活动管理"></i><span index=0>活动管理</span></a></li> 
+		<li  class="vertical-container ac_font "><a class="vertical-container" href="web_code.html" target="content"><i class="ac_code"  title="网站代码"></i><span index=1 >网站代码</span></a></li>
+		<li  id="rech" class="vertical-container ac_font "><a class="vertical-container" href="conversion_funnel.html?id=0" target="content"><i class="ac_lio" title="转化漏斗"></i><span index=2 >转化漏斗</span></a></li>
+		<li class="vertical-container ac_font "><a class="vertical-container" href="Index_trend.html" target="content"> <i class="ac_lit" title="指标趋势"></i><span index=3 >指标趋势</span></a></li>
+		<li  class="vertical-container ac_font "><a class="vertical-container" href="rank.html" target="content"><i class="ac_lith" title="维度排名"></i><span index=4 >维度排名</span></a></li>
+		<li class="vertical-container ac_font" style="display:none"><a class="vertical-container" href="imp_ans.html" target="content"><i class="ac_imp" title="展示分析"></i><span index=5>展示分析</span></a></li>
+		<li class="vertical-container ac_font"  style="display:none" ><a class="vertical-container" href="click_ans.html" target="content"><i class="ac_fc" title="点击分析"></i><span index=6>点击分析</span></a></li>
+		<li  class="vertical-container ac_font " ><a class="vertical-container" href="reach.html" target="content"><i class="ac_fr" title="实时访客"></i><span index=7 >实时访客</span></a></li>
+		<li   class="vertical-container ac_font"  style="display:none" ><a class="vertical-container" href="conv_ans.html" target="content"><i  class="ac_fi" title="转化跟踪"></i><span index=8 >转化跟踪</span></a></li>
+		<li   class="vertical-container ac_font"  style="display:none" ><a class="vertical-container" href="rate_ans.html" target="content"><i  class="ac_rate" title="频次分析"></i><span index=9>频次分析</span></a></li>
+		<!--<li   class="vertical-container ac_font "><a class="vertical-container" href="repet_ans.html" target="content"><i  class="ac_repet" title="重合度分析"></i><span index=9 >重合度分析</span></a></li>-->
+    </ul>
+</div>
+</body>
+</html>

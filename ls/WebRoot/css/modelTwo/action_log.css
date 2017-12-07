@@ -1,0 +1,13 @@
+
+#log{position:relative;width:auto; height:auto; background:#fff; padding:36px 3%;}
+.ac_li{ width:150px;
+	height:39px;
+	color:#666;
+	font-size:18px;
+	text-align:center;
+	border-bottom:#F60 1px solid;
+	color:#f60;
+	}
+#log_main{ width:auto; height:auto; border-top:#CCC 1px solid; padding:22px 2% 10px 2%;}
+html, body { margin: 0; padding: 0;}
+

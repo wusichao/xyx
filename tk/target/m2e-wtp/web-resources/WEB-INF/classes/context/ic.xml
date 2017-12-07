@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- 曝光 -->
+	<bean id="impAdapter" class="com.xyx.x.adapter.IcAdapter">
+		<property name="caCenter" ref="hsCenter"/>
+		<property name="idsParser" ref="idsParser"/>
+		<property name="actionType" value="IMPRESSION"/>
+	</bean>
+	
+	<!-- 点击 -->
+	<bean id="clickAdapter" class="com.xyx.x.adapter.IcAdapter">
+		<property name="caCenter" ref="hsCenter"/>
+		<property name="idsParser" ref="idsParser"/>
+		<property name="actionType" value="CLICK"/>
+	</bean>
+	
+	<!-- 曝光日志处理器 -->
+	<bean id="impLogProcessor" class="com.xyx.x.log.processor.LogProcessor">
+		<property name="logger" value="imp.log"/>
+		<property name="renderers">
+			<list>
+				<ref bean="commFieldRenderer"/>
+				<ref bean="icFieldRenderer"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 点击日志处理器 -->
+	<bean id="clickLogProcessor" class="com.xyx.x.log.processor.LogProcessor">
+		<property name="logger" value="click.log"/>
+		<property name="renderers">
+			<list>
+				<ref bean="commFieldRenderer"/>
+				<ref bean="icFieldRenderer"/>
+			</list>
+		</property>
+	</bean>
+	
+</beans>

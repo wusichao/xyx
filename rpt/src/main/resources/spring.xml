@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:property-placeholder location="classpath*:*.properties" />
+
+	<bean id="runner" class="xyxtech.rpt.runner.LogRunner">
+		<property name="reader" ref="fileReader" />
+		<property name="manager" ref="manager" />
+		<property name="jedis" ref="jedis" />
+		<property name="parentPaths" value="${LOG_HOME}/imp;${LOG_HOME}/click;${LOG_HOME}/reach;${LOG_HOME}/cvt" />
+		<property name="bakDirName" value="bak" />
+		<property name="noFileWaitMills" value="60000" />
+		<property name="writeDbIntervalMills" value="30000" />
+	</bean>
+	
+	<task:scheduled-tasks>
+		<task:scheduled ref="runner" method="dateDirMonitor" cron="0 0 3 * * ?" />
+	</task:scheduled-tasks>
+	
+	<task:scheduled-tasks>
+		<task:scheduled ref="runner" method="impCount" cron="0 0 3 * * ?" />
+	</task:scheduled-tasks>
+
+	<bean id="fileReader" class="xyxtech.rpt.reader.LogFileReaderImpl">
+		<property name="manager" ref="manager" />
+		<property name="lineParser" ref="lineParser" />
+	</bean>
+
+	<bean id="lineParser" class="xyxtech.rpt.parser.LineParserImpl" />
+
+	<bean id="manager" class="xyxtech.rpt.manager.MemManager">
+		<property name="ccReporter" ref="ccReporter" />
+		<property name="hourReporter" ref="hourReporter" />
+		<property name="geoReporter" ref="geoReporter" />
+		<property name="acReporter" ref="acReporter" />
+		<property name="accReporter" ref="accReporter" />
+		<property name="aceReporter" ref="aceReporter" />
+		<property name="aReporter" ref="aReporter" />
+		<property name="rptDao" ref="rptDao" />
+		<property name="logDetailDao" ref="logDetailDao" />
+		<property name="diveDao" ref="diveDao"/>
+	</bean>
+
+	<bean id="ccReporter"
+		class="xyxtech.rpt.data.collector.reporter.ChannelCreativeReporter">
+		<property name="jedis" ref="jedis" />
+	</bean>
+	<bean id="hourReporter" class="xyxtech.rpt.data.collector.reporter.HourReporter">
+	<property name="jedis" ref="jedis" />
+	</bean>
+	<bean id="geoReporter" class="xyxtech.rpt.data.collector.reporter.GeoReporter">
+	<property name="jedis" ref="jedis" />
+	</bean>
+	<bean id="acReporter" class="xyxtech.rpt.data.collector.reporter.AccountCampaignReporter">
+	<property name="jedis" ref="jedis" />
+	</bean>
+	<bean id="accReporter" class="xyxtech.rpt.data.collector.reporter.ChannelReporter">
+	<property name="jedis" ref="jedis" />
+	</bean>
+	<bean id="aceReporter" class="xyxtech.rpt.data.collector.reporter.CreativeReporter">
+	<property name="jedis" ref="jedis" />
+	</bean>
+	<bean id="aReporter" class="xyxtech.rpt.data.collector.reporter.AccountReporter">
+	<property name="jedis" ref="jedis" />
+	</bean>
+	
+	<bean id="rptDao" class="xyxtech.rpt.dao.RptMariadbDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="logDetailDao" class="xyxtech.rpt.dao.LogDetailMariadbDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="diveDao" class="xyxtech.rpt.dao.DiveMariadbDao">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<!-- 数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${ds.driver_class_name}" />
+		<property name="validationQuery" value="select 1 from dual" />
+		<property name="defaultReadOnly" value="false" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="false" />
+		<property name="url" value="${ds.url}" />
+		<property name="username" value="${ds.username}" />
+		<property name="password" value="${ds.password}" />
+		<property name="initialSize" value="${ds.initial_size}" />
+		<property name="maxActive" value="${ds.max_active}" />
+		<property name="maxIdle" value="${ds.max_idle}" />
+		<property name="minIdle" value="${ds.min_idle}" />
+		<property name="poolPreparedStatements" value="${ds.poolPreparedStatements}" />
+	</bean>
+	
+	<bean id="jedis" class="redis.clients.jedis.JedisCluster"
+		destroy-method="close">
+		<constructor-arg>
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg value="${jedis.host}" />
+					<constructor-arg value="${jedis.port}" />
+				</bean>
+			</set>
+		</constructor-arg>
+		<constructor-arg>
+			<bean class="redis.clients.jedis.JedisPoolConfig">
+				<property name="maxTotal" value="${jedis.max_total}" />
+			</bean>
+		</constructor-arg>
+	</bean>
+</beans>

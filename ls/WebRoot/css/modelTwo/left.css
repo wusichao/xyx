@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ font-family:'微软雅黑';margin:0; padding:0;}
+.fl{ float:left;}
+ .vertical-container{ display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center;  }
+.left a{text-decoration:none; color:#fff;}
+.left{ width:180px; height:900px; background:#443f3c;}
+.listimg{ margin:12px 0 20px 130px; cursor:pointer;}
+.left ul{ margin:0; padding:0px;}
+.left li{ margin:0; padding:0px;}
+.ac_font{height:50px; list-style:none; font-size:14px;} 
+.ac_lio{ display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/th-01.png) no-repeat 24px center;}
+.ac_lit{ display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/f-01.png) no-repeat 24px center;}
+.ac_lith{display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/fi-01.png) no-repeat 24px center;}
+.ac_fc{display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/s-01.png) no-repeat 24px center;}
+.ac_imp{display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/imp-01.png) no-repeat 24px center;}
+.ac_fr{display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/reach.png) no-repeat 24px center;}
+.ac_fi{display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/ss-01.png) no-repeat 24px center;}
+.ac_lif{ display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/o-01.png) no-repeat 24px center;}
+.ac_on{ border-left:#f60 5px solid; color:#f60;  background:#3d414d url(../../images/modelTwo/point.gif) no-repeat right 50%;}
+.ac_code{ display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/repet.png) no-repeat 24px center;}
+.ac_rate{ display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/n-01.png) no-repeat 24px center;}
+.ac_repet{ display:block; width:76px; height:50px; float:left; background:url(../../images/modelTwo/repet.png) no-repeat 24px center;}

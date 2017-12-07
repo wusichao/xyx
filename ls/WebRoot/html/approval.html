@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../jqGrid/css/jquery-ui.css" rel="stylesheet"/>
+<!--<link href="../jqGrid/css/ui.jqgrid.css" rel="stylesheet"/>-->
+<link href="../jqGrid/css/ui.jqgridtttttttttt.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/base/bootstrap.css"/>
+<link rel="stylesheet" href="../css/base/layout.css"/>
+<link rel="stylesheet" href="../css/modelOne/approval-layout.css"/>
+<script language="javascript" src="../js/base/jquery-1.11.1.min.js"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+<script language="javascript" src="../js/base/jquery-ui.min.js"></script>
+<script language="javascript" src="../jqGrid/js/jquery.jqGrid.min.js"></script>
+<script language="javascript" src="../jqGrid/js/i18n/grid.locale-cn.js"></script>
+<script language="javascript" src="../js/base/jquery.cookie.js"></script>
+	 <script language="javascript" src="../js/modelOne/approval.js"></script>
+<script src="../js/base/html5shiv.js" type="text/javascript"></script>
+<!--<script src="../js/approval-change.js" type="text/javascript"></script>-->
+<script language="javascript" src="../js/base/bootstrap.js"></script>
+
+<title>审核账号</title>
+</head>
+
+<body>
+<div id="wrap">
+	<ul class="clearfix">
+    	<li id="changeNoButton"class="fl exa-title in ">待审核</li>
+        <li  id="changeButton" class="fl exa-title">已审核</li>
+    </ul>
+    
+    <div id="exa-main">
+    <div id="exa-search" class="vertical-container">
+ 	<input id="company_name" type="text" name="company_name" placeholder="请输入公司名称" >
+ 	<button id="searchButton">搜索</button>
+ 	<a id="approved" href="javascript:approved()">√审核通过</a>
+  	<a id="disapproved" href="javascript:disapproved()">×审核不通过</a>
+    </div>
+  	
+    <table id="account_grid"></table>
+ 	<div id="account_pager"></div> 
+    </div>
+</div>
+<div >
+			<hr/>
+			<ol class="breadcrumb" style="text-align:center; background:none">
+				<li style="font-size:12px; color:#999; font-family:Verdana, Geneva, sans-serif">Copyright © 2015-2016 xyxtech.com, All Rights Reserved.</li>
+			</ol>
+		</div>
+		
+<div class="modal fade" id="photo" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true"> &times; </button>
+				<h4 class="modal-title" id="myModalLabel"> 营业执照 </h4>
+			</div>
+			<div id="im" class="modal-body">
+			<!--<img src="images/bgtwo.gif"/>-->
+			</div>
+			
+		</div>
+		<!-- /.modal-content --> 
+		
+	</div>
+	<!-- /.modal --> 
+</div>	
+		
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<head>
+<link href="css/base/bootstrap.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/base/jquery-1.11.1.min.js"></script>
+<script>
+$(function() {
+	$.ajaxSetup({
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		complete : function(XMLHttpRequest, textStatus) {
+			if (XMLHttpRequest.getResponseHeader("sessionstatus") == "timeOut") {
+				  if(XMLHttpRequest.getResponseHeader("loginPath")){
+			            alert("由于您过长时间未操作，为保证账户安全，请重新登录!");
+			            window.top.location.replace(XMLHttpRequest.getResponseHeader("loginPath"));  
+			        }else{  
+			            alert("请求超时请重新登陆 !");  
+			        }  
+			}
+		}
+	});
+});	
+</script>
+<script type="text/javascript" src="js/base/bootstrap.js"></script>
+
+<script>
+  
+$(function() {
+$.ajax({
+					type:"POST",
+					url:"getAccountName.do",
+					dateType:"json",
+					success: function(data) {
+						$("#a2").text(data);
+		     }
+		});
+
+});	
+
+</script>
+<title>标题部分</title>
+<style>
+.fr{ float:right;}
+.fl{ float:left;}
+h2{padding-left:20px;font-family:'Microsoft YaHei';  font-weight:400;  font-size:21px;  color:#F90; line-height:22px;}
+h5{ padding-left:30px; padding-top:20px;font: 12px 'STXingkai';  color:#FFFFFF;}
+.ullist{height:100%; line-height:50px; margin-bottom:0}
+.ullist a{color:#fff;text-decoration:none;font:13px 'Heiti SC Light','Heiti SC';  font-weight:200;}
+.ullist a:hover { font-size:14px; color:#F90;}
+.con{ color:#F00;font-size:16px;}
+</style>
+</head>
+
+<body>
+<div class="container-fluid" style="background:#585c5c;">
+	<div class="col-lg-6">
+		<img class="fl" src="images/modelTwo/logo.gif" title="灵石" alt="LOGO"/>
+		<h2 class="fl">灵石大数据平台</h2>
+		<h5 class="fl">从此，互联网营销更可控！</h5>
+	</div>
+	<div class="col-lg-6" style="overflow:hidden;">
+		<div class="fr">
+    <ul class="list-inline ullist">
+		<li><a id="a2" href="myself.html" target="content">昵称</a></li>
+		<li><a id="a1" href="help.html" target="_blank">帮助中心</a></li>
+		<li><a id="a3" href="logout.do" target="_top">退出</a></li>
+	</ul>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

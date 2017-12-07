@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+#mymain{
+	width:auto;
+	height:500px;
+	background:#fff;
+	
+	margin:0 146px 0 126px;
+	 padding-top:60px;
+}
+input[class=mgs]{min-width:230px; height:30px;padding-left:10px; border:none; background:none; background:url(../../images/hui.gif) no-repeat right center;} 
+
+#mymgs{ margin-top:20px;  padding:30px 0 20px 30px; width:auto; height:auto; background-color:#f6f6f6;}
+.bobj{margin-top:20px;  padding:30px 0 20px 60px; width:auto; height:auto; background-color:#f6f6f6;}
+.ac_labfon{ display: inline-block; width:90px; text-align:right; margin-right:10px; color:#666; font-size:15px; font-weight:200;}
+.mg{min-width:230px; height:30px;padding-left:10px; border:none; background:none;} 
+
+
+
+
+
+
+
+
+
+#mymain li{ display:inline-block;float:left; text-align:center;width:170px; height:40px;font-size:18px;color:#f60;}
+
+
+
+.on{ border-bottom:#F63 solid 1px;}
+
+
+.adduser{ display:none;}
+.my-obtn{position:absolute; top:160px; left:200px;}
+.labelfont{ line-height:45px; color:#666;
+	font-size:15px;
+	font-weight:200;}
+.lfont{font:13px; line-height:45px; color:#333;font-weight:400}
+.labelwh{ height:45px;}
+.datatime{width:50px; height:30px; border:#999 1px solid; border-radius:4px; text-align:center; background:#fff; margin-left:5px; margin-right:5px;}
+.save,.remove{ margin-bottom:20px;width:85px; height:30px; border:none; margin-top:20px; border-radius:4px;}
+.in{background:#F60; color:#FFF; margin-right:20px;}
+.out{background:#ccc; color:#333;}
+#netpwd{ }
+.netpwd{ display: inline-block; width:80px; height:auto;}
+.mypwdtitle{ font-size:21px; color:#FFF; line-height:38px;}
+.showpwd{  width:auto;}
+.mynewpwd{ display:inline-block; width:100px; text-align:right; color:#FFF; font-size:14px; font-weight:200;}
+/*.showtext{   width:220px; height:30px;padding-left:10px; font:12px;color:#999; border:none; margin-left:5px;-webkit-transition:all 0.25s linear;	-moz-transition:all 0.25s linear;transition:all 0.25s linear;border-radius:4px;}*/
+.pwdsave{ margin:10px 20px 20px 30px;background:#F60; color:#FFF;width:85px; height:30px; border:none; border-radius:4px;}
+.pwdremove{background:#ccc; color:#666; margin-right:20px;width:85px; height:30px; border:none; margin-top:10px; border-radius:4px;}
+.content{width:auto;
+	height:auto;
+	border-top:1px solid #ccc;
+	padding:22px;}
+.content p{ height:40xp; margin:5px;}
+.bjtext{ background:url(../../images/group_04.gif) no-repeat right center;}
+
+#pwderror{ text-align:center;}
+input[type=password],.ordermgs{ margin-left:10px; width:240px; height:30px;padding-left:10px; font:12px;color:#999;   border:1px solid;border-color:#abbce8 #c3cae0 #b9c8ef;
+	-webkit-transition:all 0.25s linear;	-moz-transition:all 0.25s linear;transition:all 0.25s linear;border-radius:4px;}
+input[type=password]:focus{outline:none;color:#525864;	border-color:#84c0ee;	-webkit-box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;	-moz-box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;	box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15), 0 0 7px #96c7ec;	}
+.head{ margin-left:60px;}
+.fontcol{ color:#f60;}	
+.con{color:#f00;}
+.setcyc{ display:block;width:320px; height:80px; border:#999 1px solid; border-radius:5px; padding:14px;}

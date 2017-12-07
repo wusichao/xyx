@@ -1,0 +1,25 @@
+package com.xyx.x.log.enu;
+
+public enum CommLogField {
+
+	ACTION_ID,
+	ACTION_PRE_ID,
+	REQUEST_TIME,
+	RESPONSE_TIME,
+	SESSION_ID,
+	ACTION_URI,
+	ACTION_TYPE,
+	ACCOUNT_ID,
+	
+	USER_ID,
+	
+	AGENT_URL,
+	AGENT_REFERER,
+	AGENT_UA,
+	
+	GEO_IP,
+	GEO_OFFSET_MINUTES,
+	GEO_ID,
+	
+	;
+}

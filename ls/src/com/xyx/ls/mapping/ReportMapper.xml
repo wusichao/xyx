@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xyx.ls.dao.report.ReportMapper">
+	<resultMap type="com.xyx.ls.bean.ReportBean" id="reportMap">
+		<result column="conversion" property="convertion" jdbcType="BIGINT" />
+	</resultMap>
+	<resultMap type="com.xyx.ls.bean.ReportAnalyzeBean" id="ReportAnalyzeMap">
+		<result column="click_time" property="clickTime" jdbcType="TIMESTAMP" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="channel_name" property="channelName" jdbcType="VARCHAR" />
+		<result column="campaign_name" property="campaignName"
+			jdbcType="VARCHAR" />
+		<result column="geo_id" property="geo" jdbcType="BIGINT" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
+		<result column="creative_name" property="creativeName"
+			jdbcType="VARCHAR" />
+		<result column="action_pre_id" property="actionPreId" jdbcType="VARCHAR" />
+		<result column="conversion_time" property="conversionTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap type="com.xyx.ls.bean.RptImpClick" id="RptImpClickMap">
+	
+	</resultMap>
+	<select id="findConvertionData" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM rpt_base where account_id=${accountId} and campaign_id=${id} ${sql}
+	</select>
+	<select id="findConvertionChannelData" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM rpt_ac_ca_ch where account_id=${accountId} and campaign_id=${id} ${sql}
+	</select>
+	<select id="findConvertionCreativeData" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM rpt_ac_ca_cr where account_id=${accountId} and campaign_id=${id} ${sql}
+	</select>
+	<select id="findConvertionCampaignData" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM rpt_ac_ca where account_id=${accountId} and campaign_id=${id} ${sql}
+	</select>
+	
+	<select id="getRecords" resultType="java.lang.Integer">
+		select count(*) from rpt_base
+		where campaign_id=${id} ${sql}
+	</select>
+	<select id="findReportGrid" resultMap="reportMap" parameterType="hashmap"
+		statementType="STATEMENT">
+		SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM `rpt_base`
+		where account_id=${accountId} and campaign_id=${id} ${sql} group by day
+	</select>
+	<select id="findReportAllGrid" resultMap="reportMap" parameterType="hashmap"
+		statementType="STATEMENT">
+	SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM `rpt_ac`
+		where account_id=${accountId}  ${sql} group by day
+</select>
+
+<select id="findConverAlltionData" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+	SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM rpt_ac where account_id=${accountId}  ${sql}
+</select>
+	
+	<select id="findReportChannelGrid" resultMap="reportMap" parameterType="hashmap"
+		statementType="STATEMENT">
+		SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM `rpt_ac_ca_ch`
+		where account_id=${accountId} and campaign_id=${id} ${sql} group by day
+	</select>
+	<select id="findReportCreativeGrid" resultMap="reportMap" parameterType="hashmap"
+		statementType="STATEMENT">
+		SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM `rpt_ac_ca_cr`
+		where account_id=${accountId} and campaign_id=${id} ${sql} group by day
+	</select>
+	<select id="findReportCampaignGrid" resultMap="reportMap" parameterType="hashmap"
+		statementType="STATEMENT">
+		SELECT day, SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM `rpt_ac_ca`
+		where account_id=${accountId} and campaign_id=${id} ${sql} group by day
+	</select>
+	
+	<select id="findDimensionRank" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT ${selectId}SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM `rpt_ac_ca_ch` where account_id=${accountId} and campaign_id=${campaignId} ${sql}
+		${rank}
+	</select>
+	<select id="findDimensionCreativeRank" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT ${selectId}SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM `rpt_ac_ca_cr` where account_id=${accountId} and campaign_id=${campaignId} ${sql}
+		${rank}
+	</select>
+	
+	<select id="findDimensionGeoRank" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT ${selectId} SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM `rpt_geo` where account_id=${accountId} and campaign_id=${campaignId} ${sql} group by
+		${rank}
+	</select>
+	<select id="findDimensionHourRank" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT hour,SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		FROM `rpt_hour` where account_id=${accountId} and campaign_id=${campaignId} ${sql} group by
+		hour
+	</select>
+	<select id="getClick_LogRecords" resultType="java.lang.Integer">
+		select count(id) from click_log where campaign_id=#{0} and channel_id=#{1}
+		and DATE(req_time)=#{2} AND HOUR(req_time)>=#{3} AND
+		#{4}>=HOUR(req_time)
+	</select>
+	<select id="getClick_Log" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		select cl.req_time AS click_time,user_id,ct.name AS creative_name,
+		ip,url,geo_id FROM click_log cl left join creative ct on
+		cl.creative_id=ct.id where campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+		ORDER BY ${sidx} ${sord} limit ${start},${rowpage}
+	</select>
+	<select id="getConversion_LogRecords" resultType="java.lang.Integer">
+		select count(id) from convertion_log ctl where  ctl.account_id=${accountId} ${conversionId}
+		${campaignId} ${channelId}
+		and DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+	</select>
+
+	<select id="getConversion_Log" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT ctl.req_time AS conversion_time ,ctl.geo_id,ctl.ip,ctl.user_id,
+		cl.req_time AS click_time,cn.name AS channel_name ,cl.referer AS url
+		,ca.name AS campaign_name,ct.name AS creative_name,ctl.other,cvt.name as conversionName
+		FROM convertion_log ctl LEFT JOIN reach_log cl ON
+		ctl.action_pre_id=cl.action_id LEFT JOIN channel cn ON
+		ctl.channel_id=cn.id LEFT JOIN campaign ca ON ctl.campaign_id=ca.id
+		LEFT JOIN creative ct ON ctl.creative_id =ct.id
+		left join convertion cvt on cvt.id=ctl.cvt_id 
+		where  ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+		ORDER BY ${sidx} ${sord} limit ${start},${rowpage}
+	</select>
+	<select id="findClickTimeByConversionTime" resultType="java.util.Date">
+		select req_time from click_log where action_id=#{0}
+	</select>
+	<select id="findConversionUrl" resultType="java.lang.String">
+		select url from
+		click_log where action_id=#{0}
+	</select>
+	<select id="getClick_LogExport" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		select cl.req_time AS click_time,user_id,ct.name AS creativa_name,
+		ip,url,geo_id FROM click_log cl left join creative ct on
+		cl.creative_id=ct.id where campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	</select>
+	<select id="getConversion_LogExport" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT ctl.req_time AS conversion_time ,ctl.geo_id,ctl.ip,ctl.user_id,
+		cl.req_time AS click_time,cn.name AS channel_name ,cl.referer AS url
+		,ca.name AS campaign_name,ct.name AS creative_name,ctl.other,cvt.name as conversionName
+		FROM convertion_log ctl LEFT JOIN reach_log cl ON
+		ctl.action_pre_id=cl.action_id LEFT JOIN channel cn ON
+		ctl.channel_id=cn.id LEFT JOIN campaign ca ON ctl.campaign_id=ca.id
+		LEFT JOIN creative ct ON ctl.creative_id =ct.id
+		left join convertion cvt on cvt.id = ctl.cvt_id 
+		where ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+	</select>
+
+	<select id="clickHZuser" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+	SELECT clickNum,COUNT(*)AS useripNum  FROM  (SELECT *,COUNT(*) AS clickNum FROM click_log 
+	 where campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	GROUP BY user_id)AS wsc  GROUP BY clickNum ORDER BY clickNum DESC
+	</select>
+	<select id="clickHZip" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+	SELECT clickNum,COUNT(*)AS useripNum  FROM  (SELECT *,COUNT(*) AS clickNum FROM click_log 
+	where campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time) 
+	GROUP BY ip)AS wsc  GROUP BY clickNum ORDER BY clickNum DESC
+	</select>
+	<select id="cvtHZ" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT COUNT(*)AS cvtNum FROM reach_log cl 
+RIGHT JOIN convertion_log ctl ON cl.action_id = ctl.action_pre_id WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time) BETWEEN 24*60*60*7 AND 24*60*60*15
+		and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+ UNION ALL
+SELECT COUNT(*)AS cvtNum FROM reach_log cl 
+RIGHT JOIN convertion_log ctl ON cl.action_id = ctl.action_pre_id WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time) BETWEEN 24*60*60*3 AND 24*60*60*7
+		and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+ UNION ALL
+SELECT COUNT(*)AS cvtNum FROM reach_log cl 
+RIGHT JOIN convertion_log ctl ON cl.action_id = ctl.action_pre_id WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time)  BETWEEN 24*60*60 AND 24*60*60*3
+		and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+ UNION ALL
+SELECT COUNT(*)AS cvtNum FROM reach_log cl 
+RIGHT JOIN convertion_log ctl ON cl.action_id = ctl.action_pre_id WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time)  BETWEEN 60*60 AND 24*60*60
+		and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+ UNION ALL
+SELECT COUNT(*)AS cvtNum FROM reach_log cl 
+RIGHT JOIN convertion_log ctl ON cl.action_id = ctl.action_pre_id WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time)  BETWEEN 5*60 AND 60*60
+		and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+ UNION ALL
+SELECT COUNT(*)AS cvtNum FROM reach_log cl 
+RIGHT JOIN convertion_log ctl ON cl.action_id = ctl.action_pre_id WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time)  BETWEEN 60 AND 5*60
+		and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+ UNION ALL
+SELECT COUNT(*)AS cvtNum FROM reach_log cl 
+RIGHT JOIN convertion_log ctl ON cl.action_id = ctl.action_pre_id WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time)  BETWEEN 1 AND 60 
+		and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+	</select>
+	<select id="getAllClickByClickNumUserIdRecords" resultType="java.lang.Integer">
+	select count(*) FROM click_log cl left join creative ct on
+		cl.creative_id=ct.id 
+	WHERE user_id IN (SELECT user_id FROM (SELECT user_id,COUNT(*) AS clickNum FROM click_log 
+	where campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	GROUP BY user_id HAVING clickNum =${clickNum})AS wsc)
+	and campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	</select>
+	<select id="getAllClickByClickNumUserId" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+	select cl.req_time AS click_time,user_id,ct.name AS creative_name,
+		ip,url,geo_id FROM click_log cl left join creative ct on
+		cl.creative_id=ct.id 
+	WHERE user_id IN (SELECT user_id FROM (SELECT user_id,COUNT(*) AS clickNum FROM click_log 
+	where campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	GROUP BY user_id HAVING clickNum =${clickNum})AS wsc)
+	and campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	ORDER BY ${sidx} ${sord} limit ${start},${rowpage}
+	</select>
+	<select id="getAllClickByClickNumIpRecords" resultType="java.lang.Integer">
+	select count(*) FROM click_log cl left join creative ct on
+		cl.creative_id=ct.id 
+	WHERE ip IN (SELECT ip FROM (SELECT ip,COUNT(*) AS clickNum FROM click_log 
+	where campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	GROUP BY ip HAVING clickNum =${clickNum})AS wsc)
+	and campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	</select>
+	<select id="getAllClickByClickNumIp" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+	select cl.req_time AS click_time,user_id,ct.name AS creative_name,
+		ip,url,geo_id FROM click_log cl left join creative ct on
+		cl.creative_id=ct.id 
+	WHERE ip IN (SELECT ip FROM (SELECT ip,COUNT(*) AS clickNum FROM click_log 
+	where campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	GROUP BY ip HAVING clickNum =${clickNum})AS wsc)
+	and campaign_id=${id} and
+		channel_id=${channelId}
+		and DATE(req_time)=${date} AND HOUR(req_time)>=${startHour} AND
+		${endHour}>=HOUR(req_time)
+	ORDER BY ${sidx} ${sord} limit ${start},${rowpage}
+	</select>
+	<select id="getAllCvtBycvtgapRecords" resultType="java.lang.Integer">
+	SELECT count(*) FROM reach_log cl 
+RIGHT JOIN convertion_log ctl ON cl.action_id = ctl.action_pre_id 
+WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time)  BETWEEN ${gap}
+and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+	</select>
+	<select id="getAllCvtBycvtgap" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+	SELECT ctl.req_time AS conversion_time ,ctl.geo_id,ctl.ip,ctl.user_id,
+		cl.req_time AS click_time,cn.name AS channel_name ,cl.url AS url
+		,ca.name AS campaign_name,ct.name AS creative_name,ctl.other,cvt.name as conversionName 
+		FROM convertion_log ctl LEFT JOIN reach_log cl ON
+		ctl.action_pre_id=cl.action_id LEFT JOIN channel cn ON
+		ctl.channel_id=cn.id LEFT JOIN campaign ca ON ctl.campaign_id=ca.id
+		LEFT JOIN creative ct ON ctl.creative_id =ct.id
+		left join convertion cvt on cvt.id = ctl.cvt_id 
+WHERE ctl.action_pre_id !='' AND TIMESTAMPDIFF(SECOND,cl.req_time,ctl.req_time)  BETWEEN ${gap}
+and ctl.account_id=${accountId} ${conversionId} ${campaignId} ${channelId} AND
+		DATE(ctl.req_time)=${date} AND HOUR(ctl.req_time)>=${startHour} AND
+		${endHour}>=HOUR(ctl.req_time)
+		ORDER BY ${sidx} ${sord} limit ${start},${rowpage}
+	</select>
+<select id="getVisit_LogRecords" resultType="java.lang.Integer">
+select count(*) from (
+	SELECT  *
+FROM reach_log rl 
+WHERE rl.account_id =${account} ${campaignId} ${channelId} 
+		AND DATE(req_time)=${date}
+		AND HOUR(req_time) BETWEEN ${startHour} AND ${endHour}
+		 GROUP BY user_id limit 10000)wsc 
+</select>
+<select id="getVisit_Log" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+		SELECT 
+  COUNT(*) AS visitNum,
+  wusc.*
+FROM
+(SELECT  
+wsc.*,
+SEC_TO_TIME(
+      UNIX_TIMESTAMP(MAX(rl3.req_time)) - UNIX_TIMESTAMP(MIN(rl3.req_time))
+   ) AS stopTime 
+   FROM 
+  (SELECT 
+    MAX(rl.req_time) AS visitTime,
+    ip,
+    user_id,
+    geo_id,
+    referer AS url,
+    rl.url AS nowUrl     
+  FROM
+    reach_log rl 
+  WHERE  rl.account_id = ${account} ${campaignId} ${channelId} 
+    AND DATE(req_time) = ${date} 
+    AND HOUR(req_time) BETWEEN ${startHour} AND ${endHour}
+  GROUP BY user_id limit 10000 ) wsc 
+  LEFT JOIN reach_log rl3 
+    ON wsc.user_id = rl3.user_id
+    WHERE DATE(rl3.req_time) =${date}
+    AND rl3.account_id = ${account} 
+    GROUP BY user_id 
+  )wusc
+  LEFT JOIN reach_log rl2 
+    ON wusc.user_id = rl2.user_id    
+WHERE DATE(rl2.req_time) BETWEEN DATE_SUB(${date}, INTERVAL 6 DAY) 
+  AND ${date} 
+  AND rl2.account_id = ${account}   
+GROUP BY rl2.user_id  
+ORDER By ${sidx} ${sord} limit ${start},${rowpage}
+</select>
+<select id="getVisit_LogExport" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT 
+  COUNT(*) AS visitNum,
+  wusc.*
+FROM
+(SELECT  
+wsc.*,
+SEC_TO_TIME(
+      UNIX_TIMESTAMP(MAX(rl3.req_time)) - UNIX_TIMESTAMP(MIN(rl3.req_time))
+   ) AS stopTime 
+   FROM 
+  (SELECT 
+    MAX(rl.req_time) AS visitTime,
+    ip,
+    user_id,
+    geo_id,
+    referer AS url,
+    rl.url AS nowUrl     
+  FROM
+    reach_log rl 
+  WHERE  rl.account_id = ${account} ${campaignId} ${channelId} 
+    AND DATE(req_time) = ${date} 
+    AND HOUR(req_time) BETWEEN ${startHour} AND ${endHour}
+  GROUP BY user_id limit 10000 ) wsc 
+  LEFT JOIN reach_log rl3 
+    ON wsc.user_id = rl3.user_id
+    WHERE DATE(rl3.req_time) =${date}
+    AND rl3.account_id = ${account} 
+    GROUP BY user_id 
+  )wusc
+  LEFT JOIN reach_log rl2 
+    ON wusc.user_id = rl2.user_id    
+WHERE DATE(rl2.req_time) BETWEEN DATE_SUB(${date}, INTERVAL 6 DAY) 
+  AND ${date} 
+  AND rl2.account_id = ${account}   
+GROUP BY rl2.user_id   
+</select>
+<select id="getCpdDay" resultType="java.lang.Integer">
+select count(*) from (SELECT COUNT(*) FROM rpt_base WHERE campaign_id=${campaignId} ${sql} GROUP BY DAY) wsc
+</select>
+<select id="rptImpClickRecords" resultType="java.lang.Integer">
+SELECT count(*) FROM rpt_imp_click where campaign_id = ${campaignId} and channel_id=${channelId} ${sql}
+</select>
+<select id="rptImpClick" resultMap="RptImpClickMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT id,DAY ,imp_user_num AS impUserNum ,imp_ip_num AS impIpNum, ip_contact_ratio AS ipContactRatio ,campaign_id AS campaignId,channel_id AS channelId ,
+user_contact_ratio AS userContactRatio,click_user_num AS clickUserNum, click_ip_num AS clickIpNum
+FROM  rpt_imp_click where campaign_id = ${campaignId} and channel_id=${channelId} ${sql} ORDER BY ${sidx} ${sord} limit ${start},${rowpage}
+</select>
+<select id="rptImpClickNum" resultMap="RptImpClickMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT SUM(imp) as imp ,SUM(click) as click,DAY  FROM rpt_base WHERE campaign_id = ${campaignId} and channel_id=${channelId} ${sql} GROUP BY DAY ORDER BY ${sidx} ${sord} 
+</select>
+
+<select id="rptImpHZip" resultMap="RptImpClickMap">
+select one_ip as oneip,two_three_ip as twoAndThreeip, four_and_six_ip as fourAndSixip,seven_and_ten_ip as sevenAndTenip, eleven_and_fifty_ip as elevenAndFiftyip, fifty_and_hundred_ip as fiftyAndHundredip,hundreds_ip as hundredsip
+from rpt_imp_click where id = #{id}
+
+</select>
+
+<select id="rptImpHZuser" resultMap="RptImpClickMap">
+select one_user as oneuser,two_three_user as twoAndThreeuser, four_and_six_user as fourAndSixuser,seven_and_ten_user as sevenAndTenuser, eleven_and_fifty_user as elevenAndFiftyuser, fifty_and_hundred_user as fiftyAndHundreduser,hundreds_user as hundredsuser
+from rpt_imp_click where id = #{id}
+</select>
+
+<select id="rptImpClickExport" resultMap="RptImpClickMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT id,DAY ,imp_user_num AS impUserNum ,imp_ip_num AS impIpNum, ip_contact_ratio AS ipContactRatio ,campaign_id AS campaignId,channel_id AS channelId ,
+user_contact_ratio AS userContactRatio,click_user_num AS clickUserNum, click_ip_num AS clickIpNum
+FROM  rpt_imp_click where campaign_id = ${campaignId} and channel_id=${channelId} ${sql} 
+</select>
+<select id="rptImpClickNumExport" resultMap="RptImpClickMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT SUM(imp) as imp ,SUM(click) as click,DAY  FROM rpt_base WHERE campaign_id = ${campaignId} and channel_id=${channelId} ${sql} GROUP BY DAY
+</select>
+<select id="findReachConvertion" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+	SELECT
+(SELECT COUNT(*) FROM reach_log  WHERE account_id =${accountId} AND campaign_id=0 ${sql} )AS visit,
+(SELECT COUNT(*) FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 AND action_type='reach' ${sql}) AS reach ,
+(SELECT COUNT(*)  FROM convertion_log WHERE account_id=${accountId} AND campaign_id=0 ${sql}) AS conversion
+</select>
+<select id="findReachConversionByDay" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT SUM(visit)AS visit,SUM(reach)AS reach,SUM(conversion)AS conversion ,DAY FROM 
+(SELECT COUNT(*)AS visit,0 AS reach,0 AS conversion,DATE(req_time) AS DAY  FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 ${sql} GROUP BY DAY
+UNION 
+SELECT 0 AS visit,COUNT(*)AS reach,0 AS conversion,DATE(req_time) AS DAY  FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 AND action_type='reach' ${sql} GROUP BY DAY
+UNION
+SELECT 0 AS visit,0 AS reach,COUNT(*) AS conversion,DATE(req_time) AS DAY  FROM convertion_log  WHERE account_id = ${accountId} AND campaign_id=0 ${sql} GROUP BY DAY ) wsc
+GROUP BY DAY
+</select>
+<select id="findDimensionHourRankNoCampaign" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT SUM(visit)AS visit,SUM(reach)AS reach,SUM(conversion)AS conversion ,DAY FROM 
+(SELECT COUNT(*)AS visit,0 AS reach,0 AS conversion,HOUR(req_time) AS DAY  FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 ${sql} GROUP BY DAY
+UNION 
+SELECT 0 AS visit,COUNT(*)AS reach,0 AS conversion,HOUR(req_time) AS DAY  FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 AND action_type='reach' ${sql} GROUP BY DAY
+UNION
+SELECT 0 AS visit,0 AS reach,COUNT(*) AS conversion,HOUR(req_time) AS DAY  FROM convertion_log  WHERE account_id = ${accountId} AND campaign_id=0 ${sql} GROUP BY DAY ) wsc
+GROUP BY DAY
+</select>
+<select id="findDimensionGeoRankNoCampaign" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT SUM(visit)AS visit,SUM(reach)AS reach,SUM(conversion)AS conversion ,DAY FROM 
+(SELECT COUNT(*)AS visit,0 AS reach,0 AS conversion,geo_id AS DAY  FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 ${sql} GROUP BY DAY
+UNION 
+SELECT 0 AS visit,COUNT(*)AS reach,0 AS conversion,geo_id AS DAY  FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 AND action_type='reach' ${sql} GROUP BY DAY
+UNION
+SELECT 0 AS visit,0 AS reach,COUNT(*) AS conversion,geo_id AS DAY  FROM convertion_log  WHERE account_id = ${accountId} AND campaign_id=0 ${sql} GROUP BY DAY ) wsc
+GROUP BY DAY
+</select>
+<select id="findDimensionGeoRankPro" resultMap="reportMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT SUM(visit)AS visit,SUM(reach)AS reach,SUM(conversion)AS conversion ,DAY FROM 
+(SELECT COUNT(*)AS visit,0 AS reach,0 AS conversion,LEFT(geo_id, 6) AS DAY  FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 ${sql} GROUP BY DAY
+UNION 
+SELECT 0 AS visit,COUNT(*)AS reach,0 AS conversion,LEFT(geo_id, 6) AS DAY  FROM reach_log  WHERE account_id = ${accountId} AND campaign_id=0 AND action_type='reach' ${sql} GROUP BY DAY
+UNION
+SELECT 0 AS visit,0 AS reach,COUNT(*) AS conversion,LEFT(geo_id, 6) AS DAY  FROM convertion_log  WHERE account_id = ${accountId} AND campaign_id=0 ${sql} GROUP BY DAY ) wsc
+GROUP BY DAY
+</select>
+<select id="findReportAll">
+SELECT SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM `rpt_ac`
+		where account_id=${accountId}  ${sql} 
+</select>
+<select id="findReport">
+SELECT SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM `rpt_base`
+		where account_id=${accountId} and campaign_id=${id} ${sql}
+</select>
+
+<select id="findReportChannel">
+SELECT SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM `rpt_`
+		where account_id=${accountId} and campaign_id=${id} ${sql}
+</select>
+
+<select id="findReportCreative">
+
+</select>
+
+<select id="findReportSum" resultMap="reportMap" parameterType="hashmap"
+		statementType="STATEMENT">
+SELECT SUM(imp)as imp,SUM(click)as
+		click,SUM(reach)as
+		reach,SUM(conversion)as conversion ,SUM(visit) as visit,
+		sum(imp_ip) as impIp,sum(imp_user) as impUser,sum(click_ip) as clickIp,sum(click_user) as clickUser,
+		sum(reach_ip) as reachIp,sum(reach_user) as reachUser,sum(visit_ip) as visitIp, sum(visit_user) as visitUser,
+		sum(conversion_ip) as conversionIp,sum(conversion_user) as conversionUser
+		 FROM ${table}
+		where account_id=${accountId} ${id} ${sql} ${channel} ${creative}
+</select>
+<select id="getVisitLogInfoRecords" resultType="java.lang.Integer">
+SELECT count(*) FROM reach_log rl WHERE  account_id = ${account} ${campaignId} ${channelId} and DATE(req_time)BETWEEN DATE_SUB(${date},INTERVAL 6 DAY) AND ${date} AND user_id =${userId} 
+</select>
+<select id="getVisitLogInfo" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT 
+  rl.req_time AS  visitTime,
+  geo_id ,
+  ip,
+  user_id,
+  cn.name AS channelName,
+  ca.name AS campaignName,
+  ct.name AS creativeName,
+  referer AS url,
+  url AS nowUrl
+FROM
+  reach_log rl
+ LEFT JOIN channel cn ON
+		rl.channel_id=cn.id LEFT JOIN campaign ca ON rl.campaign_id=ca.id
+		LEFT JOIN creative ct ON rl.creative_id =ct.id WHERE  rl.account_id = ${account} ${campaignId} ${channelId} and DATE(req_time)BETWEEN DATE_SUB(${date},INTERVAL 6 DAY) AND ${date} AND user_id =${userId}
+ORDER By ${sidx} ${sord} limit ${start},${rowpage}
+</select>
+<select id="visitDateInfo" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT  DATE(req_time) AS visitTime ,COUNT(*)AS visitNum  FROM reach_log rl WHERE account_id = ${account} ${campaignId} ${channelId}  and DATE(req_time) BETWEEN DATE_SUB(${date},INTERVAL 6 DAY) AND ${date} AND user_id =${userId} GROUP BY DATE(req_time)
+</select>
+<select id="getVisitLogInfoExport" resultMap="ReportAnalyzeMap"
+		parameterType="hashmap" statementType="STATEMENT">
+SELECT 
+  rl.req_time AS  visitTime,
+  geo_id ,
+  ip,
+  user_id,
+  cn.name AS channelName,
+  ca.name AS campaignName,
+  ct.name AS creativeName,
+  referer AS url,
+  url AS nowUrl
+FROM
+  reach_log rl
+ LEFT JOIN channel cn ON
+		rl.channel_id=cn.id LEFT JOIN campaign ca ON rl.campaign_id=ca.id
+		LEFT JOIN creative ct ON rl.creative_id =ct.id WHERE  rl.account_id = ${account} ${campaignId} ${channelId} and DATE(req_time)BETWEEN DATE_SUB(${date},INTERVAL 6 DAY) AND ${date} AND user_id =${userId}
+</select>
+<select id="impInfo" resultMap="RptImpClickMap"
+		parameterType="hashmap" statementType="STATEMENT">
+select ${select} from ${table} where ${campaignId} ${channelId} ${creativeId} and day = ${date}
+
+</select>
+</mapper>

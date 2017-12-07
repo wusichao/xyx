@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+body{ font-family:'微软雅黑'; margin:0; padding:0;}
+.vertical-container{ display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center;  }
+.fl{ float:left;}
+.aft{text-align:center; font-size:18px; color:#C00;}
+.afbox{margin:100px auto; width:350px; height:250px; border-top:#CCC 10px solid; background:#CCC; border-radius:5px; padding:10px; }
+.sub{width:90px; height:30px; border:none;background:#f60; color:#fff; border-radius:4px;}
+.aftercon{ text-align:center; font:14px '微软雅黑'; color:#333;}
+#header{ width:auto; height:50px; background:#585c5c; padding-left:10px; overflow:hidden;}
+h2{  padding-left:32px;font-family:'Microsoft YaHei';  font-weight:400;  font-size:21px;  color:#ff941e;}
+h5{ padding-left:32px; padding-top:20px;font: 12px 'STXingkai';  color:#FFFFFF;}
+a{text-decoration:none; color:#666;font-size: 14px '微软雅黑'; }
